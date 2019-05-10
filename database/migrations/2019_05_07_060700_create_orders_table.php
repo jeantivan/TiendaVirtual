@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('shipping_address');
             $table->string('status');
-            $table->decimal('total', 8, 2);
+            $table->decimal('total', 12, 2);
             $table->timestamps();
         });
     }

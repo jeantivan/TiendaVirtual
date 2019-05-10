@@ -18,7 +18,7 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
-            $table->decimal('sub_total', 8, 2);
+            $table->decimal('sub_total', 12, 2);
             $table->timestamps();
         });
     }
