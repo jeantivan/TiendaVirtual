@@ -7,6 +7,6 @@ $factory->define(App\Image::class, function (Faker $faker) {
     	'product_id' => function () {
             return factory(App\Product::class)->create()->id;
         },
-        'path' => $faker->imageUrl($width = 640, $height = 480),
+        'path' => $faker->imageUrl($width = 480, $height = 360),
     ];
 });
