@@ -21,10 +21,10 @@
                         <h4 class="card-title">{{ $product->name }}</h4>
                     </a>
                     <p class="card-text">{{ $product->description}}</p>
-                    <h5>Precio: <span class="badge badge-dark p-2">{{ $producto->price }} $</span></h5>
+                    <h5>Precio: <span class="badge badge-dark p-2">{{ $product->price }} $</span></h5>
                 </div>
                 <div class="card-footer">
-                    @if(!$producto->stock)
+                    @if(!$product->stock)
                         <button class="btn btn-secondary disable">No disponible</button>
                     @else
                         <form action="/carrito" method="POST">
@@ -37,6 +37,7 @@
                 </div>
             </div>
         @endforeach
+        {{$products->links()}}
     </div>
 </div>
 @endsection

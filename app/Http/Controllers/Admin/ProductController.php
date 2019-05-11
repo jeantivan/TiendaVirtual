@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use App\Product;
 use Illuminate\Http\Request;
@@ -14,8 +15,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(9);
-        return view('products')->with('products', $products);
+        $products = Product::paginate(5);
+
+        /*foreach ($products as $product) {
+            $image = $product->images()->where('product_id', $product->id)->get();
+            echo "Path:". $image->first()->path . "<br>";
+        }*/
+        
+        return view('admin.products', ['products' => $products]);
     }
 
     /**
@@ -25,7 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.createProduct');
     }
 
     /**
@@ -36,7 +43,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        // Se valida la data 
+        $request->validate([
+            'name' => 'required|max:190',
+            'price' =>'required|numeric',
+            'stock' => 'required|numeric',
+            'description' => 'required|max:191',
+            'imagen' => 'bail|required|image|max:5000'
+        ]);
+        // Se guarda la imagen en local
+        if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store('public/images');
+        }
+        // Guardamos los resultados en la BBDD
+       
+        $entrada = $request->all();
+
+        $entrada['imagen'] = $path;
+
+        Productos::create($entrada);
+
+        // Redirijimos a 
+        return redirect()->action('ProductosController@index')->with('message', 'Producto agregado con éxito.');*/
     }
 
     /**

@@ -18,13 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products', 'ProductController@index');
 
 Route::prefix('admin')->group(function () {
-	
-	Route::get('/', 'AdminController@index')->name('index');
+
 	// Todos los Productos
-    Route::get('products', 'AdminController@products')->name('products');
+    Route::resource('products', 'Admin\ProductController');
 
     // Todos las Ordenes
-    Route::get('orders', 'AdminController@orders')->name('orders');
+    Route::get('orders', 'Admin\AdminController@orders')->name('orders');
+	
+	Route::get('/', 'Admin\AdminController@index')->name('index');
+
 });
