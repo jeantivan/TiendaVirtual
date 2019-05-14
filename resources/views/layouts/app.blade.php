@@ -40,10 +40,10 @@
                             <a href="#" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
+                            <a href="#" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> Carrito</a>
+                            <a href="#" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
@@ -53,6 +53,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> Carrito</a>
+                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Iniciar sesión') }}</a>
@@ -90,5 +93,6 @@
             @yield('content')
         </main>
     </div>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

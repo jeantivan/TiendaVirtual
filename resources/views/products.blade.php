@@ -17,22 +17,17 @@
             <div class="card shadow-sm my-3 mx-2" style="width: 30%;">
                 <img src="{{ $path }}" class="card-img-top">
                 <div class="card-body">
-                    <a href="#" class="stretched-link card-link">
+                    <a href="#" class="card-link">
                         <h4 class="card-title">{{ $product->name }}</h4>
                     </a>
                     <p class="card-text">{{ $product->description}}</p>
                     <h5>Precio: <span class="badge badge-dark p-2">{{ $product->price }} $</span></h5>
                 </div>
                 <div class="card-footer">
-                    @if(!$product->stock)
-                        <button class="btn btn-secondary disable">No disponible</button>
+                    @if(!$product->in_stock)
+                        <button class="btn btn-secondary disable float-right">No disponible</button>
                     @else
-                        <form action="/carrito" method="POST">
-                            @csrf
-                            <input type="hidden" name="producto_id" value="{{$producto->id}}">
-                            <input type="number" class="form-control my-2 w-50" name="cantidad" min="1" value="1">
-                            <input type="submit" class="btn btn-warning" name="enviar" value="Agregar al Carrito">
-                        </form>
+                        <button class="btn btn-warning float-right" onclick="addToCart({{ $product->id }})">Añadir al carrito</button>
                     @endif
                 </div>
             </div>
@@ -40,4 +35,28 @@
         {{$products->links()}}
     </div>
 </div>
+<script type="text/javascript">
+    function addToCart(id){
+        jQuery.ajax({
+            headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/carts',
+            type: 'POST',
+            data: {
+                product_id: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+        })
+        .done(function() {
+            console.log("success");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+    }
+</script>
 @endsection

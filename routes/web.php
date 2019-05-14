@@ -31,3 +31,9 @@ Route::prefix('admin')->group(function () {
 	Route::get('/', 'Admin\AdminController@index')->name('index');
 
 });
+
+Route::prefix('users')->group(function(){
+
+});
+
+Route::resource('carts', 'CartController');

@@ -43,7 +43,7 @@
                             <a href="#" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> Carrito</a>
+                            <a href="#" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
@@ -125,5 +125,6 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
