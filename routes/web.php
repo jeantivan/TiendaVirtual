@@ -33,7 +33,8 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('users')->group(function(){
-
+	
+	Route::resource('carts', 'CartController')->except('create', 'show', 'edit');
 });
 
-Route::resource('carts', 'CartController');
+

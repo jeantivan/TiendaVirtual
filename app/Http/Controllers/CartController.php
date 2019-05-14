@@ -19,27 +19,22 @@ class CartController extends Controller
 
 
     /**
-     * Display a listing of the resource.
-     *
+     * Se muestran los productos que tiene el usuario en el carrito
+     * en las sesion actual
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        
+        $carts = Cart::where('user_id', auth()->user()->id)
+                    ->where('session_key', session()->getId())->get();
+
+        return view('carts', ['carts' => $carts]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Se almacenan los productos del usuario en un carrito
+     * utilizando la sesion actual
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -56,28 +51,6 @@ class CartController extends Controller
         $cart->save();
 
         return response('success', 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
-    {
-        //
     }
 
     /**
