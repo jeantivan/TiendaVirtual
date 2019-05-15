@@ -10,21 +10,31 @@
 			<a href="{{route('admin.products.create')}}" class="btn btn-primary btn-block">Agregar Producto Nuevo</a>
 		</div>	
 	</div>
-	<div class="row">
-		<div class="col-9">
+	<div class="mt-2">
+		<form action="{{route('admin.products.index')}}" method="GET" class="form-inline">
+			<div class="input-group">
+				<input type="text" name="s" class="form-control" placeholder="Nombre del Producto...">
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="submit">
+						Buscar <i class="fas fa-search"></i>
+            		</button>
+				</div>	
+			</div>      
+        </form>
+	</div>
+	<hr>
+	<div class="d-flex flex-row flex-wrap justify-content-between">
 			@foreach($products as $product)
-				@php
-					$image = $product->images()->where('product_id', $product->id)->get();
-					$path = $image->first()->path;
-				@endphp
-				<div class="card m-3">
-					<img src="{{ $path }}" class="card-img-top">
+				<div class="card shadow-sm mb-3" style="width: 48%;">
+					<img src="{{ $product->images()->first()->path }}" class="card-img-top">
 					<div class="card-body">
-						<h3 class="card-title">{{ $product->name }}</h3>
+						<a href="" class="card-link">
+							<h3 class="card-title">{{ $product->name }}</h3>
+						</a>
 						<p class="card-text">{{ $product->description }}</p>
 						<h5>Precio: <span class="badge badge-dark p-2">{{ $product->price}} $</span></h5>
 						@if($product->in_stock)
-							<span class="badge badge-primary p-2">Disponible</span>
+							<h5>Cantidad disponible: <span class="badge badge-primary p-2">{{ $product->quantity_available }}</span></h5>
 						@else
 							<span class="badge badge-dark p-2 float-right">Agotado</span>
 						@endif
@@ -33,10 +43,8 @@
 			@endforeach
 		</div>
 	</div>
-	<div class="row justify-content-center">
-		<div class="col-12">
-			{{ $products->links() }}
-		</div>
+	<div class="d-flex justify-content-center">
+		{{ $products->links() }}
 	</div>
 </div>
 @endsection

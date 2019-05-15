@@ -9,20 +9,24 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Lista todos los productos disponibles
+     * Tambien recibe un Request para filtrar los resultados por 
+     * un buscardor simple.
+     * 
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(5);
+        if (!$request) {
+            $products = Product::paginate(10);
+            return view('admin.products')->with('products', $products);
+        }
 
-        /*foreach ($products as $product) {
-            $image = $product->images()->where('product_id', $product->id)->get();
-            echo "Path:". $image->first()->path . "<br>";
-        }*/
-        
-        return view('admin.products', ['products' => $products]);
+        $products = Product::where('name', 'like', '%'. $request->s .'%')->paginate(10);
+
+        $products->each(function($products){
+            $products->images;
+        });
+        return view('admin.products')->with('products', $products);
     }
 
     /**
@@ -36,14 +40,13 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un producto nuevo en la BBDD
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        /*
         // Se valida la data 
         $request->validate([
             'name' => 'required|max:190',
