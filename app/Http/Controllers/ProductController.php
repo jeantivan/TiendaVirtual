@@ -12,10 +12,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(9);
+        if (!$request) {
+            $products = Product::paginate(9);
+            return view('products')->with('products', $products);
+        }
+
+        $products = Product::where('name', 'like', '%'. $request->s .'%')->paginate(9);
+
+        $products->each(function($products){
+            $products->images;
+        });
         return view('products')->with('products', $products);
+        
     }
 
     /**

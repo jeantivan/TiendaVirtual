@@ -7,21 +7,3 @@
 
 require('./bootstrap');
 
-
-// Mi Javascript
-function addToCart(id){
-    jQuery.ajax({
-        url: '/carts',
-        type: 'POST',
-        data: {product_id: id},
-    })
-    .done(function() {
-        console.log("success");
-    })
-    .fail(function() {
-        console.log("error");
-    })
-    .always(function() {
-        console.log("complete");
-    });
-}

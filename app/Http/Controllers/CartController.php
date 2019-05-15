@@ -28,8 +28,12 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', auth()->user()->id)
                     ->where('session_key', session()->getId())->get();
+        $products = [];
+        foreach ($carts as $cart) {
+            array_push($products, Product::find($cart->product_id));
+        }
 
-        return view('carts', ['carts' => $carts]);
+        return view('carts', ['carts' => $carts, 'products' => $products]);
     }
 
     /**
@@ -71,8 +75,12 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        //
+        $cart = Cart::find($id);
+
+        $cart->delete();
+
+        return response('Producto eliminado del Carrito.',200);
     }
 }

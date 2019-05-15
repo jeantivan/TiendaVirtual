@@ -37,16 +37,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+                            <a href="{{route('home')}}" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
+                            <a href="{{route('products')}}" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
+                            <a href="{{route('categories')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
+                            <a href="{{route('contact')}}" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
                         </li>
                     </ul>
 

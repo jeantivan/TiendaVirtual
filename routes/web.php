@@ -18,17 +18,32 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/products', 'ProductController@index');
 
+Route::get('/products', 'ProductController@index')->name('products');
+Route::get('/categories', 'CategoryController@index')->name('categories');
+
+Route::get('/contact', function(){
+	return view('contact');
+})->name('contact');
+
+// Rutas de administrador con prefijo y nombres
 Route::prefix('admin')->group(function () {
-
-	// Todos los Productos
-    Route::resource('products', 'Admin\ProductController');
-
-    // Todos las Ordenes
-    Route::get('orders', 'Admin\AdminController@orders')->name('orders');
 	
-	Route::get('/', 'Admin\AdminController@index')->name('index');
+	Route::name('admin.')->group( function (){
+
+		// Todos los Productos
+		Route::resource('products', 'Admin\ProductController');
+
+		// Todos las Ordenes
+    	Route::get('orders', 'Admin\AdminController@orders')->name('orders');
+		
+		// Dashboard de Administrador
+		Route::get('/', 'Admin\AdminController@index')->name('index');
+
+	});
+    
+
+    
 
 });
 

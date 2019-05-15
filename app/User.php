@@ -43,4 +43,9 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany('App\Order');
     }
+
+    // Relacion 1 a Muchos con el modelo Cart
+    public function carts(){
+        return $this->hasMany('App\Cart');
+    }
 }

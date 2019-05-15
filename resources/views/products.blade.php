@@ -2,20 +2,24 @@
 
 @section("content")
 <div class="container rounded mh-100 w-100 bg-light">
-    <div class="row">
-        <div class="col-sm-9">
-            <h1 class="pt-3 pb-2 title">Productos</h1>
+    <div class="row align-content-center">
+        <div class="col-md-7">
+            <h1 class="mt-3 mb-2 title">Productos</h1>
+        </div>
+        <div class="col-md-5 ml-auto">
+            <form action="{{route('products')}}" method="GET" class="form-inline">
+                <input type="text" name="s" class="form-control mt-3 mb-2 mx-2" placeholder="Nombre del Producto...">
+                <button class="btn btn-primary mt-3 mb-2" type="submit">
+                    Buscar <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
     </div>
     <hr>
     <div class="d-flex flex-row flex-wrap" >
         @foreach($products as $product)
-            @php
-                $image = $product->images()->where('product_id', $product->id)->get();
-                $path = $image->first()->path;
-            @endphp
             <div class="card shadow-sm my-3 mx-2" style="width: 30%;">
-                <img src="{{ $path }}" class="card-img-top">
+                <img src="{{ $product->images()->first()->path }}" class="card-img-top">
                 <div class="card-body">
                     <a href="#" class="card-link">
                         <h4 class="card-title">{{ $product->name }}</h4>
@@ -36,23 +40,24 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    // Petición AJAX para agregar productos al carrito de compras
     function addToCart(id){
         jQuery.ajax({
-            headers:{
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/carts',
+            url: "{{ route('carts.store') }}",
             type: 'POST',
             data: {
                 product_id: id,
-                '_token': $("meta[name='csrf-token']").attr("content"),
             },
         })
         .done(function() {
-            console.log("success");
+            alert('Producto agregado al Carrito con éxito.');
         })
         .fail(function() {
-            console.log("error");
+            calert('El producto no pudo ser agregado al Carrito.');
         })
         .always(function() {
             console.log("complete");

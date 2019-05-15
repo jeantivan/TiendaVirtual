@@ -26,4 +26,9 @@ class Product extends Model
     public function categories(){
     	return $this->belongsToMany('App\Category');
     }
+
+    // Relacion 1 a Muchos (Inversa) con el modelo Cart
+    public function carts(){
+        return $this->hasMany('App\Cart');
+    }
 }
