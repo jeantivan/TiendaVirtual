@@ -7,7 +7,7 @@
 			<h1 id="title" class="title">Productos Disponibles</h1>
 		</div>
 		<div class="float-right">
-			<a href="#" class="btn btn-primary btn-block">Agregar Producto Nuevo</a>
+			<a href="{{route('admin.products.create')}}" class="btn btn-primary btn-block">Agregar Producto Nuevo</a>
 		</div>	
 	</div>
 	<div class="row">

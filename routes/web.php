@@ -36,6 +36,8 @@ Route::prefix('admin')->group(function () {
 
 		// Todos las Ordenes
     	Route::get('orders', 'Admin\AdminController@orders')->name('orders');
+
+    	Route::resource('categories', 'Admin\CategoryController');
 		
 		// Dashboard de Administrador
 		Route::get('/', 'Admin\AdminController@index')->name('index');

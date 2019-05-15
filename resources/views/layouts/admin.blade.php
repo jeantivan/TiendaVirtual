@@ -100,17 +100,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('admin.products.index')}}">
                                     <i class="fas fa-box-open"></i> Productos
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-users"></i> Usuarios
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('admin.categories.index')}}">
                                     <i class="fas fa-tags"></i> Categorias
                                 </a>
                             </li>

@@ -2,15 +2,16 @@
 
 @section('content')
 <div class="container my-4">
-	<div class="card">
+	<div class="card shadow-sm">
 		<div class="card-header bg-dark text-white">
 			<div class="row">
-				<div class="col-sm-10">
-					<h2 class="card-title py-2 ml-auto">Agregar Producto</h2>
+				<div class="col-sm-2 mt-2">
+					<a href="{{route('admin.products.index')}}" class="btn btn-danger mr-auto">Volver</a>
 				</div>
-				<div class="col-sm-2 py-2">
-					<a href="#" class="btn btn-danger mr-auto">Volver</a>
+				<div class="col-sm-10 mt-2 text-center">
+					<h1 class="card-title title">Agregar Producto</h1>
 				</div>
+				
 			</div>
 		</div>
 		<div class="card-body">
