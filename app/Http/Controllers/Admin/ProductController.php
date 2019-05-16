@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
     /**
      * Lista todos los productos disponibles
      * Tambien recibe un Request para filtrar los resultados por 
@@ -36,7 +43,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.createProduct');
+        // Formulario para crear productos junto con las categorias disponibles
+        $categories = Category::all();
+        return view('admin.createProduct', ['categories' => $categories]);
     }
 
     /**
@@ -45,30 +54,27 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        // Se valida la data 
-        $request->validate([
-            'name' => 'required|max:190',
-            'price' =>'required|numeric',
-            'stock' => 'required|numeric',
-            'description' => 'required|max:191',
-            'imagen' => 'bail|required|image|max:5000'
-        ]);
+        return $request->input('categories');
+
         // Se guarda la imagen en local
-        if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('public/images');
-        }
+        /*if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('public/images/products/' . Str::slug($request->name, '-'));
+            }
+
+        }*/
         // Guardamos los resultados en la BBDD
        
-        $entrada = $request->all();
+        /*$entrada = $request->all();
 
         $entrada['imagen'] = $path;
 
-        Productos::create($entrada);
+        Product::create($entrada);
 
         // Redirijimos a 
-        return redirect()->action('ProductosController@index')->with('message', 'Producto agregado con éxito.');*/
+        return redirect()->route('admin.products.index')->with('message', 'Producto agregado con éxito.');*/
     }
 
     /**

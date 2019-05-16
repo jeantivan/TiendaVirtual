@@ -15,22 +15,22 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<form action="#" enctype="multipart/form-data"  method="POST" class="px-3">
+			<form action="{{ route('admin.products.store')}}" enctype="multipart/form-data"  method="POST" class="px-3">
 				@csrf
 				<div class="row justify-content-center">
 					<div class="col-md-3">
-						<label for="nombre" class="form-label my-2">Nombre de Producto:</label>
+						<label for="name" class="form-label my-2">Nombre de Producto:</label>
 					</div>
 					<div class="col-md-7">
-						<input type="text" id="nombre" name="nombre" class="form-control form-control-sm my-2" placeholder="Camiseta">
+						<input type="text" id="name" name="name" class="form-control form-control-sm my-2" placeholder="Camiseta" maxlength="80">
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
 					<div class="col-md-3">
-						<label for="precio" class="form-label my-2">Precio:</label>
+						<label for="price" class="form-label my-2">Precio:</label>
 					</div>
 					<div class="col-md-7">
-						<input type="number" min="0" step="0.01" id="precio" name="precio" class="form-control form-control-sm my-2" placeholder="45.32">
+						<input type="number" min="0" step="0.01" id="price" name="price" class="form-control form-control-sm my-2" placeholder="45.32">
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
@@ -43,17 +43,33 @@
 				</div><br>
 				<div class="row  justify-content-center">
 					<div class="col-md-3">
-						<label for="descripcion" class="form-label my-2">Descripción:</label>
+						<label for="description" class="form-label my-2">Descripción:</label>
 					</div>
 					<div class="col-md-7">
-						<textarea name="descripcion" id="descripcion" rows="5" maxlength="190" class="form-control my-2" placeholder="Descripción del producto..."></textarea>
+						<textarea name="description" id="description" rows="5" maxlength="190" class="form-control my-2" placeholder="Descripción del producto..."></textarea>
+					</div>
+				</div><br>
+				<div class="row  justify-content-center">
+					<div class="col-md-3">
+						<label for="categories" class="form-label my-2">Categorias:</label>
+					</div>
+					<div class="col-md-7">
+						<select name="categories[]" id="categories" class="custom-select" size="5" multiple>
+							<optgroup label="Seleccione una o varias categorias">
+							@foreach($categories as $category)
+								<option value="{{ $category->name }}">
+									{{ $category->name}}
+								</option>
+							@endforeach
+							</optgroup>
+						</select>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
 					<div class="col-md-10">
 						<div class="custom-file my-2">
-	      					<input type="file" name="imagen" class="custom-file-input" id="imagen" >
-	      					<label class="custom-file-label" for="imagen">Selecione una imagen</label>
+	      					<input type="file" name="images[]" class="custom-file-input" id="images" multiple>
+	      					<label class="custom-file-label" for="images">Selecione una o varias imagenes</label>
 	    				</div>
 	    			</div>
 				</div>
@@ -67,10 +83,10 @@
 	</div>
 </div>
 @if($errors->any())
-	<div class="alert alert-warning fade show alert-dismissible fixed-top">	
+	<div class="alert alert-danger fade show alert-dismissible fixed-top">	
 		@foreach($errors->all() as $error)
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			{{ $error }}
+			<strong>{{ $error }}</strong>
 		@endforeach	
 	</div>
 @endif
