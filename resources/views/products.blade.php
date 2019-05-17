@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-footer">
                     @if(!$product->in_stock)
-                        <button class="btn btn-secondary disable float-right">No disponible</button>
+                        <button class="btn btn-secondary disable float-right" disabled>No disponible</button>
                     @else
                         <button class="btn btn-warning float-right" onclick="addToCart({{ $product->id }})">Añadir al carrito</button>
                     @endif
