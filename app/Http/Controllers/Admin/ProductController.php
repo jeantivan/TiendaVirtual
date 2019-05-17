@@ -99,37 +99,45 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 
+     * Retorna una vista con la informacion del Producto
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-        //
+        $product->load('images', 'categories');
+        return view('admin.showProduct', ['product' => $product]); 
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 
+     * Se actualiza un Producto
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // Actualizamos los datos
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->description = $request->description;
+
+        if ($request->stock) {
+
+            // Si el stock es verdadero se almacena su valor
+            // en la cantidad disponible
+            $product->quantity_available = $request->stock;
+            $product->save();
+
+        } else {
+
+            // En caso contrario se cambia el valor in_stock
+            // y se almacena la cantidad disponible 
+            $product->in_stock = false;
+            $product->quantity_available = $request->stock;
+            $product->save();
+        }
+
+        return redirect()->route('admin.products.show', ['product' => $product->id])->with('message', 'Producto actualizado con éxito.');
     }
 
     /**

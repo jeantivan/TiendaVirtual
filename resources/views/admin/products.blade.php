@@ -26,9 +26,9 @@
 	<div class="d-flex flex-row flex-wrap justify-content-between">
 		@foreach($products as $product)
 			<div class="card shadow-sm mb-3" style="width: 48%;">
-				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top">
+				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top" style="max-height: 50% !important;">
 				<div class="card-body">
-					<a href="" class="card-link">
+					<a href="{{route('admin.products.show', ['product' => $product->id])}}" class="card-link">
 						<h3 class="card-title">{{ $product->name }}</h3>
 					</a>
 					<p class="card-text">{{ $product->description }}</p>
