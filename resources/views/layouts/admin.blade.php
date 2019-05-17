@@ -23,6 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-light">
+
     <div id="app">
         <nav class="navbar navbar-expand-md fixed-top bg-light navbar-light flex-md-nowrap p-1 shadow-sm">
             <div class="container">
@@ -69,6 +70,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('admin.index') }}" class="dropdown-item">
+                                        <i class="fas fa-tools"></i> Dashboard
+                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -113,13 +117,12 @@
                         </ul>
                     </div>
                 </nav>
-                
-                <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    @yield('content')
-                </main>
             </div>
         </div>
+                
+        <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            @yield('content')
+        </main>
     </div>
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

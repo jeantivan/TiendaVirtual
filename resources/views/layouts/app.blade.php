@@ -69,9 +69,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{ route('carts.index') }}" class="dropdown-item">
-                                        <i class="fas fa-shopping-cart"></i> Carrito
-                                    </a>
+                                    @if(Auth::user()->isAdmin)
+                                        <a href="{{ route('admin.index') }}" class="dropdown-item">
+                                            <i class="fas fa-tools"></i> Dashboard
+                                        </a>
+                                    @else
+                                        <a href="{{ route('carts.index') }}" class="dropdown-item">
+                                            <i class="fas fa-shopping-cart"></i> Carrito
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
