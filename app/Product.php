@@ -8,7 +8,7 @@ class Product extends Model
 {
     // Columnas permitidas para llenado en masa
     protected $fillable = [
-        'name', 'price', 'description'
+        'name', 'price', 'description', 'quantity_available'
     ];
     //Relaciones entre Modelos
     
