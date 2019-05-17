@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+	
     // Relaciones entre Modelos
     
     // Relacion Muchos a Muchos con Product
