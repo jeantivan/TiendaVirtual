@@ -22,7 +22,7 @@
 						<label for="name" class="form-label my-2">Nombre de Producto:</label>
 					</div>
 					<div class="col-md-7">
-						<input type="text" id="name" name="name" class="form-control form-control-sm my-2" placeholder="Camiseta" maxlength="80">
+						<input type="text" id="name" name="name" class="form-control form-control-sm my-2" placeholder="Camiseta" maxlength="80" required>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
@@ -30,7 +30,7 @@
 						<label for="price" class="form-label my-2">Precio:</label>
 					</div>
 					<div class="col-md-7">
-						<input type="number" min="0" step="0.01" id="price" name="price" class="form-control form-control-sm my-2" placeholder="45.32">
+						<input type="number" min="0" step="0.01" id="price" name="price" class="form-control form-control-sm my-2" placeholder="45.32" required>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
@@ -38,7 +38,7 @@
 						<label for="stock" class="form-label my-2">Stock:</label>
 					</div>
 					<div class="col-md-7">
-						<input type="number" min="0" id="stock" name="stock" class="form-control form-control-sm my-2" placeholder="Cantidad disponible">
+						<input type="number" min="1" id="stock" name="stock" class="form-control form-control-sm my-2" placeholder="Cantidad disponible" required>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
@@ -46,7 +46,7 @@
 						<label for="description" class="form-label my-2">Descripción:</label>
 					</div>
 					<div class="col-md-7">
-						<textarea name="description" id="description" rows="5" maxlength="190" class="form-control my-2" placeholder="Descripción del producto..."></textarea>
+						<textarea name="description" id="description" rows="5" maxlength="190" class="form-control my-2" placeholder="Descripción del producto..." required></textarea>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
@@ -54,7 +54,7 @@
 						<label for="categories" class="form-label my-2">Categorias:</label>
 					</div>
 					<div class="col-md-7">
-						<select name="categories[]" id="categories" class="custom-select" size="5" multiple>
+						<select name="categories[]" id="categories" class="custom-select" size="5" multiple required>
 							<optgroup label="Seleccione una o varias categorias">
 							@foreach($categories as $category)
 								<option value="{{ $category->name }}">
@@ -68,7 +68,7 @@
 				<div class="row  justify-content-center">
 					<div class="col-md-10">
 						<div class="custom-file my-2">
-	      					<input type="file" name="images[]" class="custom-file-input" id="images" multiple>
+	      					<input type="file" name="images[]" class="custom-file-input" id="images" multiple required>
 	      					<label class="custom-file-label" for="images">Selecione una o varias imagenes</label>
 	    				</div>
 	    			</div>
