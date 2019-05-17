@@ -126,6 +126,7 @@ class ProductController extends Controller
             // Si el stock es verdadero se almacena su valor
             // en la cantidad disponible
             $product->quantity_available = $request->stock;
+            $product->in_stock = true;
             $product->save();
 
         } else {

@@ -5,10 +5,10 @@
 	<div class="card shadow-sm">
 		<div class="card-header bg-dark text-white">
 			<div class="row">
-				<div class="col-sm-2 mt-2">
+				<div class="col-2 mt-2">
 					<a href="{{route('admin.products.index')}}" class="btn btn-danger mr-auto">Volver</a>
 				</div>
-				<div class="col-sm-10 mt-2 text-center">
+				<div class="col-10 mt-2 text-center">
 					<h1 class="card-title title">Agregar Producto</h1>
 				</div>
 				

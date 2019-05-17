@@ -31,7 +31,7 @@
             					->where('user_id', auth()->user()->id)
             					->where('session_key', session()->getId())->first();
         			@endphp
-					<tr>
+					<tr id="{{$cart->id}}">
 						<td>
 							<img src="{{$path}}" width="100">
 						</td>
@@ -45,9 +45,7 @@
 							<input type="number" min="1" max="{{$product->quantity_available}}" class="form-control" value="1">
 						</td>
 						<td class="align-middle">
-							<button id="{{$cart->id}}"class="btn btn-danger" onclick="deleteFromCart(event,{{ $cart->id }})">
-								Eliminar del Carrito 
-							</button>
+							<button class="btn btn-danger delete" data-id="{{$cart->id}}">Eliminar del Carrito</button>
 						</td>
 					</tr>
 				@endforeach
@@ -60,36 +58,4 @@
 		</h2>
 	@endif
 </div>
-<script type="text/javascript">
-	function deleteFromCart(event, id){
-		$('#'+event.target.id).append('<span class="spinner-border spinner-border-sm"></span>')
-		$.ajax({
-			headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-			url: "{{url()->current() .'/'}}"+ id,
-			type: 'DELETE',
-			success: function(){
-				$('#'+event.target.id).remove('.spinner-border');
-			},
-
-			error: function (data){
-				console.log(data);
-			},
-		})
-		.done(function() {
-			alert('Producto eliminado con éxito.')
-			location.reload();
-			console.log("success");
-		})
-		.fail(function() {
-			alert('No se pudo eliminar el producto del Carrito.')
-			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
-		});
-		
-	}
-</script>
 @endsection

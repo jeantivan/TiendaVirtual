@@ -39,7 +39,7 @@
 						</h5>
 					@else
 						<h5>
-							<span class="badge badge-dark p-2 float-right">Agotado</span>
+							<span class="badge badge-dark p-2">Agotado</span>
 						</h5>
 					@endif
 				</div>

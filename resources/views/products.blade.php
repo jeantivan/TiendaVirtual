@@ -31,7 +31,7 @@
                     @if(!$product->in_stock)
                         <button class="btn btn-secondary disable float-right" disabled>No disponible</button>
                     @else
-                        <button class="btn btn-warning float-right" onclick="addToCart({{ $product->id }})">Añadir al carrito</button>
+                        <button class="btn btn-warning float-right add" data-id="{{ $product->id}}">Añadir al carrito</button>
                     @endif
                 </div>
             </div>
@@ -39,29 +39,4 @@
         {{$products->links()}}
     </div>
 </div>
-<script type="text/javascript">
-
-    // Petición AJAX para agregar productos al carrito de compras
-    function addToCart(id){
-        jQuery.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "{{ route('carts.store') }}",
-            type: 'POST',
-            data: {
-                product_id: id,
-            },
-        })
-        .done(function() {
-            alert('Producto agregado al Carrito con éxito.');
-        })
-        .fail(function() {
-            calert('El producto no pudo ser agregado al Carrito.');
-        })
-        .always(function() {
-            console.log("complete");
-        });
-    }
-</script>
 @endsection

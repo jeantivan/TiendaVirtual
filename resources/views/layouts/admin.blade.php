@@ -120,9 +120,10 @@
             </div>
         </div>
                 
-        <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10">
             @yield('content')
         </main>
     </div>
+
 </body>
 </html>

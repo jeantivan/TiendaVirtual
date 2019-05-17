@@ -96,7 +96,10 @@
 	</div>
 </div>
 @if(session('message'))
-	<div class="alert alert-success fade show alert-dismissible fixed-top">	<strong>{{ session('message') }}</strong>
+
+	<div class="alert alert-success fade show alert-dismissible fixed-top">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>{{ session('message') }}</strong>
 	</div>
 @endif
 @endsection
