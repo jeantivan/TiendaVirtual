@@ -26,7 +26,7 @@
 	<div class="d-flex flex-row flex-wrap justify-content-between">
 		@foreach($products as $product)
 			<div class="card shadow-sm mb-3" style="width: 48%;">
-				<img src="{{ $product->images()->first()->path }}" class="card-img-top">
+				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top">
 				<div class="card-body">
 					<a href="" class="card-link">
 						<h3 class="card-title">{{ $product->name }}</h3>
@@ -42,6 +42,14 @@
 							<span class="badge badge-dark p-2 float-right">Agotado</span>
 						</h5>
 					@endif
+				</div>
+				<div class="card-footer">
+					<p>
+						Creado el: {{ $product->created_at }}
+					</p>
+					<p>
+						Ultima actualización: {{ $product->updated_at }}
+					</p>
 				</div>
 			</div>
 		@endforeach

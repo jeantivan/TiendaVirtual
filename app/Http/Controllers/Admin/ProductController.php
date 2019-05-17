@@ -7,14 +7,15 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
-use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     public function __construct()
     {
+        // Acceso solo a Administradores;
         $this->middleware('admin');
     }
+
     /**
      * Lista todos los productos disponibles
      * Tambien recibe un Request para filtrar los resultados por 
@@ -24,11 +25,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if (!$request) {
-            $products = Product::paginate(10);
+            $products = Product::orderBy('id', 'desc')->paginate(10);
             return view('admin.products')->with('products', $products);
         }
 
-        $products = Product::where('name', 'like', '%'. $request->s .'%')->paginate(10);
+        $products = Product::where('name', 'like', '%'. $request->s .'%')->orderBy('id', 'desc')->paginate(10);
 
         $products->each(function($products){
             $products->images;
@@ -56,25 +57,45 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        return $request->input('categories');
 
-        // Se guarda la imagen en local
-        /*if ($request->hasFile('images')) {
+        // Si las imagenes se suben correctamente
+        if ($request->hasFile('images')) {
+
+            // Guardamos los datos del Producto en la BBDD
+            $product = new Product();
+
+            $product->name = $request->name; // Nombre
+            $product->price = $request->price; // Precio
+            $product->quantity_available=$request->stock; //Cnt Disponible
+            $product->description = $request->description; // Descripción
+
+            $product->save(); // Guardamos
+
+            // Guardamos las Imagenes en Local y en la BBDD
             foreach ($request->file('images') as $image) {
-                $path = $image->store('public/images/products/' . Str::slug($request->name, '-'));
+
+                // Ruta de la imagen en local
+                $path = $image->store('public/images/products/' . $product->id);
+
+                // Se guarda la Ruta en la BBDD
+                $product->images()->create([
+                    'path' => $path,
+                ]);
             }
 
-        }*/
-        // Guardamos los resultados en la BBDD
-       
-        /*$entrada = $request->all();
+            // Asignamos las categorias al Producto
+            foreach ($request->categories as $category) {
+                
+                // Se encuentra el la categoria en la BBDD
+                $registro = Category::where('name', $category)->first();
 
-        $entrada['imagen'] = $path;
+                // Le asignamos la categoria al producto
+                $product->categories()->attach($registro->id);
+            }
+        }
 
-        Product::create($entrada);
-
-        // Redirijimos a 
-        return redirect()->route('admin.products.index')->with('message', 'Producto agregado con éxito.');*/
+        // Redirijimos a la lista de Productos
+        return redirect()->route('admin.products.index')->with('message', 'Producto agregado con éxito.');
     }
 
     /**
