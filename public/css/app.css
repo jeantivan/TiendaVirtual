@@ -10713,6 +10713,117 @@ a.text-dark:focus {
   }
 }
 
+/**
+ * Preloader
+*/
+
+#loader_container {
+  position: fixed;
+  background-color: #3C3C4F;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1080;
+}
+
+#loader1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 12vw;
+  height: 12vw;
+  border: 0.7vh solid #3C3C4F;
+  border-top: 0.7vh solid #f6993f;
+  border-radius: 50%;
+  -webkit-animation: spin 2.2s ease infinite;
+          animation: spin 2.2s ease infinite;
+}
+
+#loader2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 10vw;
+  height: 10vw;
+  border: 0.7vh solid #3C3C4F;
+  border-top: 0.7vh solid #f6993f;
+  border-radius: 50%;
+  -webkit-animation: spin 2s ease infinite;
+          animation: spin 2s ease infinite;
+}
+
+#loader3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 8vw;
+  height: 8vw;
+  border: 0.7vh solid #3C3C4F;
+  border-top: 0.7vh solid #f6993f;
+  border-radius: 50%;
+  -webkit-animation: spin2 2.4s linear infinite;
+          animation: spin2 2.4s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin2 {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(-360deg);
+            transform: rotateZ(-360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(-360deg);
+            transform: rotateZ(-360deg);
+  }
+}
+
 .sidebar {
   position: fixed;
   top: 0;

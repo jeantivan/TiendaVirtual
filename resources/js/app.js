@@ -123,3 +123,10 @@ $('#addCategory').on('click', function(event) {
 });
 
 
+// Preloader
+window.onload = function(){
+    $('body').css('display', 'block').fadeIn('slow');
+    $('#loader_container').fadeOut().css('display', 'none');
+}
+
+

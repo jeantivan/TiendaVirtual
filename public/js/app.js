@@ -36938,7 +36938,12 @@ $('#addCategory').on('click', function (event) {
   event.preventDefault();
   var category = firstCharToUpperCase($('#name').val());
   addCategory(category);
-});
+}); // Preloader
+
+window.onload = function () {
+  $('body').css('display', 'block').fadeIn('slow');
+  $('#loader_container').fadeOut().css('display', 'none');
+};
 
 /***/ }),
 

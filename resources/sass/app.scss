@@ -9,6 +9,82 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+/**
+ * Preloader
+*/
+#loader_container{
+  position: fixed;
+  background-color: #3C3C4F;
+  width: 100vw;
+  height: 100vh;
+  overflow:hidden;
+  top:0;
+  left:0;
+  z-index: 1080;
+}
+
+#loader1{
+  position: absolute;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 12vw; 
+  height: 12vw;
+  border: 0.7vh solid #3C3C4F;
+  border-top: 0.7vh solid $orange;
+  border-radius: 50%;
+  animation: spin 2.2s ease infinite;
+}
+
+#loader2{
+  position: absolute;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 10vw; 
+  height: 10vw;
+  border: 0.7vh solid #3C3C4F;
+  border-top: 0.7vh solid $orange;
+  border-radius: 50%;
+  animation: spin 2s ease infinite;
+}
+
+#loader3{
+  position: absolute;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 8vw; 
+  height: 8vw;
+  border: 0.7vh solid #3C3C4F;
+  border-top: 0.7vh solid $orange;
+  border-radius: 50%;
+  animation: spin2 2.4s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { 
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin2 {
+  0% { transform: rotateZ(0deg); }
+  100% { 
+    transform: rotateZ(-360deg);
+  }
+}
+
+
+
+
 .sidebar {
   position: fixed;
   top: 0;
