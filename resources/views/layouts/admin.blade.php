@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css" defer>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
@@ -45,7 +45,7 @@
                             <a href="{{route('home')}}" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('products')}}" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
+                            <a href="{{route('products.index')}}" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('categories')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>

@@ -46,7 +46,7 @@
                             <a href="{{route('home')}}" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('products')}}" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
+                            <a href="{{route('products.index')}}" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('categories')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
@@ -105,7 +105,8 @@
             @yield('content')
         </main>
     </div>
+    
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
