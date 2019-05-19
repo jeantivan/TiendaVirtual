@@ -46,7 +46,7 @@
 						<label for="description" class="form-label my-2">Descripción:</label>
 					</div>
 					<div class="col-md-7">
-						<textarea name="description" id="description" rows="5" maxlength="190" class="form-control my-2" placeholder="Descripción del producto..." required></textarea>
+						<textarea name="description" id="description" rows="5" maxlength="5000" class="form-control my-2" placeholder="Descripción del producto..." required></textarea>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">

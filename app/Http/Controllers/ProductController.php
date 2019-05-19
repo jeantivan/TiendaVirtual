@@ -15,11 +15,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if (!$request) {
-            $products = Product::paginate(9);
+            $products = Product::orderBy('id', 'desc')->paginate(9);
             return view('products')->with('products', $products);
         }
 
-        $products = Product::where('name', 'like', '%'. $request->s .'%')->paginate(9);
+        $products = Product::where('name', 'like', '%'. $request->s .'%')
+                    ->orderBy('id', 'desc')->paginate(9);
 
         $products->each(function($products){
             $products->images;
@@ -28,69 +29,24 @@ class ProductController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function show($id){
+        // Se encuentra el Producto en la BBDD
+        // en caso de no existir retorna un error HTTP 404
+        $product = Product::findOrFail($id);
+
+        // Se cargan las relaciones del producto
+        $product->load('images', 'categories');
+
+        // Se retorna una vista y se le pasa el Producto
+        return view('showProduct', ['product' => $product]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
-    }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
+    
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        //
-    }
+
 }
