@@ -36858,15 +36858,16 @@ function addToCart(id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: 'users/carts',
+    url: "".concat(window.location.protocol, "/users/carts"),
     type: 'POST',
     data: {
       product_id: id
     }
-  }).done(function () {
+  }).done(function (data) {
     alert('Producto agregado al Carrito con éxito.');
-  }).fail(function () {
+  }).fail(function (data) {
     alert('El producto no pudo ser agregado al Carrito.');
+    console.log(data);
   }).always(function () {
     console.log("complete");
   });
@@ -36878,7 +36879,7 @@ function deleteFromCart(id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: window.location.pathname + "/" + id,
+    url: "".concat(window.location.pathname, "/").concat(id),
     type: 'DELETE',
     error: function error(data) {
       console.log(data);

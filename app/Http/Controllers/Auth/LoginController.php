@@ -45,7 +45,7 @@ class LoginController extends Controller
             return "/admin";
         }
 
-        return "/home";
+        return "/products";
     }
 
     // Eliminar los carritos con la session_key actual cuando se hace logout
