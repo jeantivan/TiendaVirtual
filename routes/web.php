@@ -50,8 +50,21 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('users')->group(function(){
+
+	Route::name('users.')->group(function(){
+
+		// Rutas del Carrito
+		Route::resource('carts', 'CartController')->only('index', 'store', 'destroy');
+
+		// Preorder
+		Route::post('/carts/preorder', 'CartController@preOrder')->name('preorder');
+
+		// Rutas de las Ordenes
+		Route::resource('orders', 'OrderController')->only('index', 'store', 'update');
+
+	});
 	
-	Route::resource('carts', 'CartController')->except('create', 'show', 'edit');
+	
 });
 
 
