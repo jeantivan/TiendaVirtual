@@ -28,12 +28,12 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', auth()->user()->id)
                     ->where('session_key', session()->getId())->get();
-        $products = [];
-        foreach ($carts as $cart) {
-            array_push($products, Product::find($cart->product_id));
-        }
 
-        return view('carts', ['carts' => $carts, 'products' => $products]);
+        $carts->each(function($carts){
+            $carts->load('product');
+        });
+
+        return view('carts', ['carts' => $carts]);
     }
 
     /**
@@ -58,19 +58,7 @@ class CartController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * Se elimina un Producto del Carrito del Usuario
      *
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
@@ -82,5 +70,36 @@ class CartController extends Controller
         $cart->delete();
 
         return response('Producto eliminado del Carrito.',200);
+    }
+
+    public function preOrder(Request $request)
+    {
+        // Los inputs
+        $ids = $request->ids;
+        $qtys = $request->qtys;
+
+        $products = Product::select('id','name', 'price')->get()->only($ids);
+        $products->load('images');
+
+        $total = 0;
+        for ($i=0, $len = count($ids); $i < $len ; $i++) { 
+            $products[$i]->qty = $qtys[$i]['qty'];
+            $total += $products[$i]->price * $qtys[$i]['qty'];
+        }
+
+        // Total de la Compra
+        $total += $total * 0.12;
+        $total = number_format($total, 2, '.','');
+
+        // Si el usuario tiene alguna dirección de envio guardada
+        // se la pasamos a la vista
+        $user = User::find(auth()->id());
+        if($user->has('shippingAddresses')) {
+            $addresses = $user->shippingAddresses;
+            return view('preorder', ['products' => $products, 'total' => $total, 'addresses' => $addresses]);
+        }
+
+        return view('preorder', ['products' => $products, 'total' => $total]);
+
     }
 }

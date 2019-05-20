@@ -48,4 +48,9 @@ class User extends Authenticatable
     public function carts(){
         return $this->hasMany('App\Cart');
     }
+
+    // Relacion 1 a Muchos con el modelo ShippingAddress
+    public function shippingAddresses(){
+        return $this->hasMany('App\ShippingAddress');
+    }
 }

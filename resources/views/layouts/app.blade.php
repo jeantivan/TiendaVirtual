@@ -80,7 +80,7 @@
                                             <i class="fas fa-tools"></i> Dashboard
                                         </a>
                                     @else
-                                        <a href="{{ route('carts.index') }}" class="dropdown-item">
+                                        <a href="{{ route('users.carts.index') }}" class="dropdown-item">
                                             <i class="fas fa-shopping-cart"></i> Carrito
                                         </a>
                                     @endif

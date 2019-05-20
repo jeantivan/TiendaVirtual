@@ -4,7 +4,7 @@
 <div class="container my-4">
 	<div class="clearfix">
 		<h1 class="title float-left">Carrito de Compras</h1>
-		<a class="btn btn-danger float-right" href="{{ route('products')}}">Volver a la tienda</a>
+		<a class="btn btn-danger float-right" href="{{ route('products.index')}}">Volver a la tienda</a>
 	</div>
 	<hr>
 	@if(count($carts))
@@ -19,21 +19,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($products as $product)
+				<form 
+					action="{{route('users.preorder')}}" 
+					method="POST" 
+					id="cartForm">
+					@csrf
+				@foreach($carts as $cart)
 					@php
 						// Se obtiene la primera imagen del producto
-            			$image = $product->images()->where('product_id', $product->id)->get();
-            			$path = $image->first()->path;
+	        			$image = $cart->product->images()->first()->path;
 
-            			// Se obtiene el id del Carrito que tiene al
-            			// actual
-            			$cart = $product->carts()
-            					->where('user_id', auth()->user()->id)
-            					->where('session_key', session()->getId())->first();
-        			@endphp
+	        			// El producto
+	        			$product = $cart->product;
+
+	    			@endphp
 					<tr id="{{$cart->id}}">
 						<td>
-							<img src="{{$path}}" width="100">
+							<img src="{{Storage::url($image)}}" class="rounded" width="100">
 						</td>
 						<td class="align-middle">
 							{{$product->name}}
@@ -42,16 +44,32 @@
 							{{$product->price}}
 						</td>
 						<td class="align-middle">
-							<input type="number" min="1" max="{{$product->quantity_available}}" class="form-control" value="1">
+							<input 
+								type="hidden" 
+								name="ids[]"
+								value="{{$product->id}}">
+							<input 
+								type="number" 
+								name="qtys[][qty]" 
+								value="1"
+								min="1" 
+								max="{{$product->quantity_available}}" class="form-control"
+								required>
 						</td>
 						<td class="align-middle">
 							<button class="btn btn-danger delete" data-id="{{$cart->id}}">Eliminar del Carrito</button>
 						</td>
 					</tr>
 				@endforeach
+				</form>
 			</tbody>
 		</table>
-		
+
+		<button 
+			class="btn btn-success float-right my-2"
+			onclick="event.preventDefault(); $('#cartForm').submit();">
+			Procesar Orden
+		</button>
 	@else
 		<h2 class="display-4 text-danger">
 			No hay productos en el carrito.
