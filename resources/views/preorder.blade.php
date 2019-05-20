@@ -86,11 +86,11 @@
 	        		</div>
 	        	@if(count($addresses))
 	        		<div class="form-group row">
-	        			<label for="user-addresses" class="col-md-4 col-form-label text-md-right">
+	        			<label for="user-address" class="col-md-4 col-form-label text-md-right">
 	        				Tus direcciones:
 	        			</label>
 	        			<div class="col-md-8">
-	        				<select class="custom-select" id="user-addresses" name="user-addresses" disabled="disabled">
+	        				<select class="custom-select" id="user-addresses" name="user-addres" disabled="disabled">
 	        					<option selected>Seleccione una Dirección</option>
 	        				@foreach($addresses as $address)
 	        					<option value="{{$address->id}}">

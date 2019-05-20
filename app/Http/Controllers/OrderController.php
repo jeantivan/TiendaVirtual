@@ -33,14 +33,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        
         // Los inputs
         $ids = $request->ids;
         $qtys = $request->qtys;
         $total = $request->total;
-        $address = $request->address;
 
-        return $request->input();
+        if($request->has('user-address')){
+
+            $id_address = $request->address;
+
+
+
+            //return $request->input();
+        }
+        dd(auth()->user()->shippingAddresses);
+        
     }
 
     /**
