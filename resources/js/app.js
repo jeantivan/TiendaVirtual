@@ -43,6 +43,7 @@ function addToCart(id){
 
 // Petición AJAX para eliminar Un producto del carrito
 function deleteFromCart(id){
+
    
     $.ajax({
         headers: {
@@ -104,12 +105,14 @@ $(".custom-file-input").on("change", function() {
 
 // Agregar Producto al Carrito de compras
 $('.add').on('click', function(event){
+    event.preventDefault();
 	let id = $(this).data('id');
 	addToCart(id);
 });
 
 // Eliminar un Producto del carrito
 $('.delete').on('click', function(event){
+    event.preventDefault();
     $(event.target).append(' <span class="spinner-border spinner-border-sm"></span>')
     let id = $(this).data('id');
     deleteFromCart(id);
@@ -121,6 +124,19 @@ $('#addCategory').on('click', function(event) {
     event.preventDefault(); 
     let category = firstCharToUpperCase($('#name').val());
     addCategory(category);
+});
+
+// Formulario de Orden
+$('#save').on('click', function(event){
+
+    if ($(this).prop('checked')) {
+        $('#user-addresses').attr('disabled', 'disabled');
+        $('#address').removeAttr('disabled');
+    } else {
+        $('#address').attr('disabled', 'disabled');
+        $('#user-addresses').removeAttr('disabled');
+    }
+
 });
 
 
