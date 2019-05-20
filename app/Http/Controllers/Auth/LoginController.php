@@ -52,7 +52,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
 
-        $carts = Cart::where('session_key', session()->getId())->delete();
+        $carts = Cart::where('session_key', session()->getId())
+                ->orWhere('user_id', auth()->user()->id)->delete();
 
         // Codigo original
         $this->guard()->logout();
