@@ -36941,16 +36941,6 @@ $('#addCategory').on('click', function (event) {
   event.preventDefault();
   var category = firstCharToUpperCase($('#name').val());
   addCategory(category);
-}); // Formulario de Orden
-
-$('#save').on('click', function (event) {
-  if ($(this).prop('checked')) {
-    $('#user-addresses').attr('disabled', 'disabled');
-    $('#address').removeAttr('disabled');
-  } else {
-    $('#address').attr('disabled', 'disabled');
-    $('#user-addresses').removeAttr('disabled');
-  }
 }); // Preloader
 
 window.onload = function () {
