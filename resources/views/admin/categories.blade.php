@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid my-3">
 	<div class="clearfix">
 		<h1 id="title" class="title float-left">Categorias</h1>
 		<form action="" method="GET" class="form-inline float-right">

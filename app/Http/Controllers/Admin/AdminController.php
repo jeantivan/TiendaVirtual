@@ -5,9 +5,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Product;
-use App\Image;
 use App\Order;
-use Illuminate\Support\Arr;
+use App\Payment;
+use App\Category;
 
 class AdminController extends Controller
 {
@@ -15,93 +15,34 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
     /**
-     * Display a listing of the resource.
+     * Dashboard del administrador
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('layouts.admin');
-    }
+        // Datos para mostrar en la vista
+        $products = Product::orderBy('updated_at', 'desc')->limit(3)->get();
+        $orders = Order::orderBy('updated_at', 'desc')->limit(4)->get();
+        $payments = Payment::orderBy('updated_at', 'desc')->limit(4)->get();
+        $categories = Category::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    //Obtenemos Todos los Productos
-    public function products(){
-        $products = Product::paginate(5);
-
-        /*foreach ($products as $product) {
-            $image = $product->images()->where('product_id', $product->id)->get();
-            echo "Path:". $image->first()->path . "<br>";
-        }*/
+        // Se cargan las relaciones;
         
-        return view('admin.products', ['products' => $products]);
+        // De las ordenes 
+        $orders->load('user');
+        $orders->each(function($order){
+            $total_products = $order->orderDetails()
+                            ->selectRaw('SUM(quantity) as total_products')->first();
+            $order->total_products = $total_products->total_products;
+        });
 
+        // De los Productos
+        $products->load('images');
 
-        
+        // De los Pagos
+        $payments->load('order.user');
+
+        return view('admin.dashboard', ['products' => $products]);
     }
+
 }

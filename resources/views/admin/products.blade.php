@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-4">
+<div class="container-fluid my-3">
 	<div class="clearfix">
 		<div class="float-left">
 			<h1 id="title" class="title">Productos Disponibles</h1>
@@ -31,8 +31,8 @@
 					<a href="{{route('admin.products.show', ['product' => $product->id])}}" class="card-link">
 						<h3 class="card-title">{{ $product->name }}</h3>
 					</a>
-					<p class="card-text">{{ $product->description }}</p>
-					<h5>Precio: <span class="badge badge-dark p-2">{{ $product->price}} $</span></h5>
+					<p class="card-text">{{ substr($product->description, 0, 200)}}...</p>
+					<h5>Precio: <span class="badge badge-success p-2">{{ $product->price}} Bs</span></h5>
 					@if($product->in_stock)
 						<h5>
 							Cantidad disponible: <span class="badge badge-primary p-2">{{ $product->quantity_available }}</span>

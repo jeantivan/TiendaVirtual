@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid my-3">
 	<div class="clearfix">
 		<h1 class="title float-left">Carrito de Compras</h1>
 		<a class="btn btn-danger float-right" href="{{ route('products.index')}}">Volver a la tienda</a>
@@ -41,7 +41,7 @@
 							{{$product->name}}
 						</td>
 						<td class="align-middle">
-							{{$product->price}}
+							{{$product->price}} Bs
 						</td>
 						<td class="align-middle">
 							<input 

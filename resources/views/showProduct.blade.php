@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid my-3">
 	<div class="clearfix">
 		<h1 class="title float-left">{{ $product->name }}</h1>
 		<a href="{{route('products.index')}}" class="btn btn-danger float-right">Volver a la Tienda</a>
@@ -12,8 +12,8 @@
 			<div id="images" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					@foreach($product->images as $image)
-						<div class="carousel-item {{$loop->first ? 'active':''}}">
-							<img src="{{Storage::url($image->path)}}" class="d-block img-fluid">
+						<div class="carousel-item {{$loop->first ? 'active':''}}" style="max-height: 450px;">
+							<img src="{{Storage::url($image->path)}}" class="d-block w-50 mx-auto" >
 						</div>
 					@endforeach
 					<a class="carousel-control-prev" href="#images" role="button" data-slide="prev">
@@ -33,7 +33,7 @@
 					ID del Producto: <span class="badge badge-dark shadow">#{{$product->id}}</span>
 				</h4>
 				<h4 class="py-2">
-					Precio Unitario: <span class="badge badge-success shadow">{{$product->price}} $</span>
+					Precio Unitario: <span class="badge badge-success shadow">{{$product->price}} Bs</span>
 				</h4>
 				@if($product->in_stock)
 					<h4 class="py-2">

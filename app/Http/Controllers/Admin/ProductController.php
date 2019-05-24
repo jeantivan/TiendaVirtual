@@ -31,9 +31,7 @@ class ProductController extends Controller
 
         $products = Product::where('name', 'like', '%'. $request->s .'%')->orderBy('id', 'desc')->paginate(10);
 
-        $products->each(function($products){
-            $products->images;
-        });
+        $products->load('images');
         return view('admin.products')->with('products', $products);
     }
 

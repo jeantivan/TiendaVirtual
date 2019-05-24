@@ -49,12 +49,23 @@ class CartController extends Controller
         $product_id = $request->product_id;
         $session_key = session()->getId();
 
-        $cart->user_id = $user_id;
-        $cart->product_id = $product_id;
-        $cart->session_key = $session_key;
-        $cart->save();
+        // Si el usuario ya tiene el producto en el carrito
+        if (Cart::where('user_id', $user_id)->where('product_id', $product_id)->exists()) {
+            return response()->json([
+                'message' => 'El producto ya esta en el carrito.',]);
+        } else{
+            $cart->user_id = $user_id;
+            $cart->product_id = $product_id;
+            $cart->session_key = $session_key;
+            $cart->save();
 
-        return response('success', 200);
+            return response('success', 200)->json([
+                'message' => 'Producto agregado al carrito con éxito',
+            ]);
+        }
+
+
+        
     }
 
     /**

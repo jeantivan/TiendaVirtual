@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex-center position-ref full-height">
-<div class="content">
-    <div class="title m-b-md">
-        Laravel
-    </div>
+<div class="container-fluid">
+	<h1 class="display-2 title">TiendaVirtualJP</h1>
 </div>
 @endsection

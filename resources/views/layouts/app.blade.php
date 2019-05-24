@@ -81,8 +81,12 @@
                                         </a>
                                     @else
                                         <a href="{{ route('users.carts.index') }}" class="dropdown-item">
-                                            <i class="fas fa-shopping-cart"></i> Carrito
+                                            <i class="fas fa-shopping-cart"></i> Carrito 
                                         </a>
+                                        <a href="{{ route('users.orders.index') }}" class="dropdown-item">
+                                            <i class="fas fa-box-open"></i> Mis Compras
+                                        </a>
+                                        
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

@@ -18,6 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="bg-light">
     <div id="loader_container">
@@ -99,12 +102,20 @@
                 <nav class="col-md-2 d-none d-md-block bg-secondary sidebar navbar-dark">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#"><span data-feather="home"></span>Dashboard</a>
+                            <li class="nav-item ">
+                                <a href="{{route('admin.index')}}" class="nav-link">
+                                    <i class="fas fa-tools"></i>
+                                    Dashboard
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="far fa-file"></i> Pedidos
+                                <a class="nav-link" href="{{ route('admin.orders.index')}}">
+                                    <i class="far fa-file"></i> Ordenes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.payments.index')}}">
+                                    <i class="fas fa-money-check-alt"></i> Pagos
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -128,7 +139,6 @@
             @yield('content')
         </main>
     </div>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
 </body>
 </html>

@@ -36858,18 +36858,16 @@ function addToCart(id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: "".concat(window.location.protocol, "/users/carts"),
+    url: '/users/carts',
     type: 'POST',
     data: {
       product_id: id
     }
-  }).done(function (data) {
-    alert('Producto agregado al Carrito con éxito.');
-  }).fail(function (data) {
+  }).done(function (response) {
+    alert(response.message);
+  }).fail(function (response) {
     alert('El producto no pudo ser agregado al Carrito.');
-    console.log(data);
-  }).always(function () {
-    console.log("complete");
+    console.log(response);
   });
 } // Petición AJAX para eliminar Un producto del carrito
 
@@ -36879,19 +36877,16 @@ function deleteFromCart(id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: "".concat(window.location.pathname, "/").concat(id),
-    type: 'DELETE',
-    error: function error(data) {
-      console.log(data);
-    }
+    url: "".concat(location.pathname, "/").concat(id),
+    type: 'DELETE'
   }).done(function () {
     // Si se elimina el producto se elimina la columna del DOM
     $('tr').remove("#".concat(id));
     alert('Producto eliminado con éxito.');
-  }).fail(function () {
+  }).fail(function (response) {
     alert('No se pudo eliminar el producto del Carrito.');
     $('button').remove('span');
-    console.log("error");
+    console.log(response);
   });
 } // Peticion AJAX para Crear Una nueva Categoría
 
@@ -36901,7 +36896,7 @@ function addCategory(category) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: window.location.pathname,
+    url: location.pathname,
     type: 'POST',
     data: {
       category: category
@@ -36912,10 +36907,44 @@ function addCategory(category) {
     $('#categories').append(category).fadeIn("slow");
   }).fail(function (response) {
     alert(response);
-  }).always(function () {
-    console.log("complete");
   });
-} // Agrega el Nombre del primer archivo de al Input de tipo File 
+} // Verificar el pago de una orden mediante AJAX y jQuery
+
+
+function verifyPayment(order_id) {
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: "".concat(location.pathname, "/verified"),
+    type: 'POST',
+    data: {
+      order_id: order_id
+    }
+  }).done(function () {
+    alert('El pago ha sido verificado con éxito.');
+  }).fail(function (response) {
+    alert('No se logró verificar el pago.');
+    console.log(response);
+  });
+} // Verificar el pago de una orden mediante AJAX y jQuery
+
+
+function orderShipped(order_id) {
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: "".concat(location.pathname),
+    type: 'PUT'
+  }).done(function () {
+    alert('La orden ha sido marcada como enviada.');
+    location.reload();
+  }).fail(function (response) {
+    alert('La order no se marcó como enviada.');
+    console.log(response);
+  });
+} // Agregar el nombre del primer archivo de al input tipo file 
 // utilizando jQuery
 
 
@@ -36927,7 +36956,8 @@ $(".custom-file-input").on("change", function () {
 $('.add').on('click', function (event) {
   event.preventDefault();
   var id = $(this).data('id');
-  addToCart(id);
+  addToCart(id); //alert('Protocol: ' + location.protocol + '\n' + 'Pathname: ' + location.pathname + '\n' + 'Hostname: ' + location.hostname);
+  //alert(`${location.protocol + location.hostname}/users/carts`);
 }); // Eliminar un Producto del carrito
 
 $('.delete').on('click', function (event) {
@@ -36941,6 +36971,30 @@ $('#addCategory').on('click', function (event) {
   event.preventDefault();
   var category = firstCharToUpperCase($('#name').val());
   addCategory(category);
+}); // Confirmar el pago de una orden
+
+$('.confirm-payment').on('click', function (event) {
+  event.preventDefault();
+  var payment = confirm('¿Seguro que desea confirmar este pago?');
+
+  if (payment) {
+    var order_id = $(event.target).data('order'); // Se llama a la función que cambia el estado de la orden
+
+    verifyPayment(order_id);
+  } else {
+    return;
+  }
+});
+$('#ship').on('click', function (event) {
+  event.preventDefault();
+  var ship = confirm('¿Seguro que desea marcar esta orden como enviada?');
+
+  if (ship) {
+    var order_id = $(event.target).data('order');
+    orderShipped(order_id);
+  } else {
+    return;
+  }
 }); // Preloader
 
 window.onload = function () {

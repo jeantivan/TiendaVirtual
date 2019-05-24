@@ -31,13 +31,19 @@ Route::prefix('admin')->group(function () {
 	
 	Route::name('admin.')->group( function (){
 
-		// Todos los Productos
+		// Productos
 		Route::resource('products', 'Admin\ProductController');
 
-		// Todos las Ordenes
-    	Route::get('orders', 'Admin\AdminController@orders')->name('orders');
+		// Ordenes
+    	Route::resource('orders', 'Admin\OrderController')->only('index', 'show', 'update');
 
-    	Route::resource('categories', 'Admin\CategoryController');
+
+    	// Pagos
+    	Route::resource('payments', 'Admin\PaymentController')->only('index');
+    	Route::post('payments/verified', 'Admin\PaymentController@verified')->name('payments.verified');
+    	
+    	// Categorias
+    	Route::resource('categories', 'Admin\CategoryController')->only('index', 'store', 'destroy');
 		
 		// Dashboard de Administrador
 		Route::get('/', 'Admin\AdminController@index')->name('index');
@@ -62,7 +68,15 @@ Route::prefix('users')->group(function(){
 		// Rutas de las Ordenes
 		Route::resource('orders', 'OrderController')->only('index', 'store', 'update');
 
+		// Ruta de la factura
+		Route::get('/orders/invoice/{id}', 'OrderController@invoice')->name('orders.invoice');
+
+		// Ruta de los Pagos
+		Route::get('/payments/{order}', 'PaymentController@payment')->name('payments.payment');
+		Route::post('/payments', 'PaymentController@store')->name('payments.store');
 	});
+
+
 	
 	
 });

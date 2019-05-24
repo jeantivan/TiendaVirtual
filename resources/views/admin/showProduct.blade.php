@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid my-3">
 	<div class="clearfix">
 		<h1 id="title" class="title float-left">{{$product->name}}</h1>
 		<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#edit">

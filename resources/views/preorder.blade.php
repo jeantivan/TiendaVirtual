@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid my-3">
 	<div class="clearfix">
 		<h1 class="title float-left">Carrito de Compras</h1>
 		<a class="btn btn-danger float-right" href="{{ route('products.index')}}">Volver a la tienda</a>
@@ -40,10 +40,10 @@
 						<strong>{{$product->qty}}</strong>
 					</td>
 					<td class="text-center h5 align-middle">
-						<strong>{{$product->price}}</strong>
+						<strong>{{$product->price}} Bs</strong>
 					</td>
 					<td class="text-center h5 align-middle">
-						<strong>{{ $product->price * $product->qty}}</strong>
+						<strong>{{ $product->price * $product->qty}} Bs</strong>
 					</td>
 				</tr>
 			@endforeach
@@ -52,7 +52,7 @@
 						<strong>Total + IVA (12%)</strong>
 					</td>
 					<td class="text-center h5 p-2">
-						<strong>{{$total}}</strong>
+						<strong>{{$total}} Bs</strong>
 					</td>
 				</tr>
 			</tbody>
@@ -81,29 +81,21 @@
 	        		<div class="row form-group">
 	        			<label for="address" class="col-md-4 col-form-label text-md-right">Direccion de Envio:</label>
 	        			<div class="col-md-8">
-	        				<input type="text" name="address" id="address"class="form-control" placeholder="Alguna dirección...">
+	        				<input type="text" name="address" id="address"class="form-control" placeholder="Alguna dirección..." {!!isset($addresses)?"list='address-list'": ""!!} required>
 	        			</div>
 	        		</div>
-	        	@if(count($addresses))
-	        		<div class="form-group row">
-	        			<label for="user-address" class="col-md-4 col-form-label text-md-right">
-	        				Tus direcciones:
-	        			</label>
-	        			<div class="col-md-8">
-	        				<select class="custom-select" id="user-addresses" name="user-addres" disabled="disabled">
-	        					<option selected>Seleccione una Dirección</option>
-	        				@foreach($addresses as $address)
-	        					<option value="{{$address->id}}">
-	        						{{$address->address}}
-	        					</option>
-	        				@endforeach
-	        				</select>
-	        			</div>
-	        		</div>
-	        	@endif
+	        	@isset($addresses)
+	        		<datalist id="address-list">
+
+	        		@foreach($addresses as $address)
+						<option>{{$address->address}}</option>
+	        		@endforeach
+
+	        		</datalist>
+	        	@endisset
 	        		<div class="form-group row justify-content-center">
 	        			<div class="col-md-auto custom-control custom-checkbox">
-	        				<input type="checkbox" class="custom-control-input" name="save" id="save" value="1" {{count($addresses)?'checked="checked"':''}}>
+	        				<input type="checkbox" class="custom-control-input" name="save" id="save" value="1">
 	        				<label for="save" class="custom-control-label">Desea guardar esta dirección de Envio</label>
 	        			</div>
 	        		</div>

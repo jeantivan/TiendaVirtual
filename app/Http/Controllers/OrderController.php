@@ -6,7 +6,11 @@ use App\Order;
 use App\User;
 use App\Product;
 use App\OrderDetail;
+use App\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use PDF;
+
 
 class OrderController extends Controller
 {
@@ -21,33 +25,89 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->get();
+
+        // Se cuenta la cantidad de productos de cada orden
+        $orders->each(function($order){
+            $total_products = $order->orderDetails()
+                            ->selectRaw('SUM(quantity) as total_products')->first();
+            $order->total_products = $total_products->total_products;
+        });
+
+        $addresses = auth()->user()->shippingAddresses;
+
+        return view('orders', ['orders' => $orders, 'addresses' => $addresses]);
     }
 
 
     /**
-     * Store a newly created resource in storage.
+     * Se Guarda la nueva orden y la dirección de envio del
+     * usuario si es necesario.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // El usuario
+        $user = User::find(auth()->user()->id);
+
         // Los inputs
         $ids = $request->ids;
         $qtys = $request->qtys;
+        $address = $request->address;
         $total = $request->total;
 
-        if($request->has('user-address')){
+        // Se crea la orden
+        $order = Order::create([
+            'user_id' => $user->id,
+            'status' => 'Esperando Pago',
+            'shipping_address' => $address,
+            'total' => $total
+        ]);
 
-            $id_address = $request->address;
+        // Detalles de la orden
+        $orderDetails = [];
 
+        for ($i=0, $len = count($ids); $i < $len; $i++){
 
+            $detail = [
+                'product_id' => $ids[$i],
+                'quantity' => $qtys[$i],
+            ];
 
-            //return $request->input();
+            array_push($orderDetails, $detail);
+
+            // Restamos la cantidad del Producto a los registros
+            $product = Product::find($ids[$i]);
+
+            $product->quantity_available -= $qtys[$i];
+
+            // Si no quedan productos se cambia el stock
+            $product->in_stock = $product->quantity_available ? 1: 0;
+
+            $product->save();
         }
-        dd(auth()->user()->shippingAddresses);
-        
+
+
+        // Se crean los detalles de la Orden
+        $order->orderDetails()->createMany($orderDetails);
+
+        // Si el Usuario quiere guardar la dirección
+        if ($request->has('save')) {
+
+            // Si no existe la direccion la guardamos
+            if(!$user->shippingAddresses()->where('address', $address)->exists()){
+                
+                $user->shippingAddresses()->create([
+                    'address' => $address
+                ]);  
+            } 
+        }
+
+        // Eliminamos los productos en el Carrito del Usuario
+        Cart::where('user_id', $user->id)->orWhere('session_key', session()->getId())->delete();
+
+        // Se redirije a la vista con las ordenes del usuario
+        return redirect()->route('users.orders.index')->with('message', 'Su orden ha sido procesada con éxito');
     }
 
     /**
@@ -64,15 +124,43 @@ class OrderController extends Controller
     
 
     /**
-     * Update the specified resource in storage.
+     * Se actualiza la direccion de envio de la orden.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $address = $request->address;
+        // Si el Usuario quiere guardar la dirección
+        if ($request->has('save')) {
+
+            // Si no existe la direccion la guardamos
+            if(!$user->shippingAddresses()->where('address', $address)->exists()){
+                
+                $user->shippingAddresses()->create([
+                    'address' => $address
+                ]);  
+            } 
+        }
+
+        $order->shipping_address = $address;
+
+        $order->save();
+
+        return redirect()->action('OrderController@index');
     }
 
+
+    public function invoice($id){
+
+        $order = Order::find($id);
+        $order->load('orderDetails');
+
+        $pdf = PDF::loadView('invoice', ['order' =>$order]);
+
+        //return $pdf->stream();
+
+        return view('invoice', ['order' => $order]);
+
+    }
 }

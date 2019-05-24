@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         if (!$request) {
             $products = Product::orderBy('id', 'desc')->paginate(9);
-            return view('products')->with('products', $products);
+            return view('products', ['products' => $products]);
         }
 
         $products = Product::where('name', 'like', '%'. $request->s .'%')
@@ -25,7 +25,7 @@ class ProductController extends Controller
         $products->each(function($products){
             $products->images;
         });
-        return view('products')->with('products', $products);
+        return view('products', ['products' => $products]);
         
     }
 

@@ -11,11 +11,6 @@ class Product extends Model
         'name', 'price', 'description', 'quantity_available'
     ];
     //Relaciones entre Modelos
-    
-    // Relacion 1 a Muchos (Inversa) con OrderDetail
-    public function orderDetail(){
-    	return $this->belongsTo('App\OrderDetail');
-    }
 
     // Relacion 1 a Muchos con Image
     public function images(){

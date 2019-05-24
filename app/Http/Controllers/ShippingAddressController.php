@@ -35,7 +35,7 @@ class ShippingAddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

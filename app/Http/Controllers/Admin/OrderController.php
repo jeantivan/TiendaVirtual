@@ -4,82 +4,50 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Order; 
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Se muestran todos los pedidos
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('updated_at', 'desc')->paginate(10);
+        $orders->load('user');
+        $orders->each(function($order){
+            $total_products = $order->orderDetails()
+                            ->selectRaw('SUM(quantity) as total_products')->first();
+            $order->total_products = $total_products->total_products;
+        });
+        
+        return view('admin.orders', ['orders' => $orders]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Se muestran los detalles de una Orden
+     * 
      */
-    public function create()
+    public function show(Order $order)
     {
-        //
+        $order->load('orderDetails.product', 'user');
+
+        return view('admin.showOrder', ['order' => $order]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Se actualiza el status de la orden
      */
-    public function store(Request $request)
+    public function update(Order $order)
     {
-        //
-    }
+        $order->status = "Enviada";
+        $order->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $order;
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

@@ -10,8 +10,8 @@ class OrderDetail extends Model
 	
     //Relaciones entre Modelos
     
-    // Relacion 1 a Muchos con Productos
-    public function products(){
-    	return $this->hasMany('App\Product');
+    // Relacion 1 a Muchos (Inversa) con el modelo Product
+    public function product(){
+    	return $this->belongsTo('App\Product');
     }
 }

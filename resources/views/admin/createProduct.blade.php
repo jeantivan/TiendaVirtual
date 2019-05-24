@@ -1,17 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid my-3">
 	<div class="card shadow-sm">
 		<div class="card-header bg-dark text-white">
 			<div class="row">
 				<div class="col-2 mt-2">
 					<a href="{{route('admin.products.index')}}" class="btn btn-danger mr-auto">Volver</a>
 				</div>
-				<div class="col-10 mt-2 text-center">
+				<div class="col-8 mt-2 text-center">
 					<h1 class="card-title title">Agregar Producto</h1>
-				</div>
-				
+				</div>	
 			</div>
 		</div>
 		<div class="card-body">
@@ -30,7 +29,7 @@
 						<label for="price" class="form-label my-2">Precio:</label>
 					</div>
 					<div class="col-md-7">
-						<input type="number" min="0" step="0.01" id="price" name="price" class="form-control form-control-sm my-2" placeholder="45.32" required>
+						<input type="number" min="0" step="0.01" id="price" name="price" class="form-control form-control-sm my-2" placeholder="45.32 Bs" required>
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
@@ -54,15 +53,12 @@
 						<label for="categories" class="form-label my-2">Categorias:</label>
 					</div>
 					<div class="col-md-7">
-						<select name="categories[]" id="categories" class="custom-select" size="5" multiple required>
-							<optgroup label="Seleccione una o varias categorias">
-							@foreach($categories as $category)
-								<option value="{{ $category->name }}">
-									{{ $category->name}}
-								</option>
-							@endforeach
-							</optgroup>
-						</select>
+					@foreach($categories as $category)
+						<div class="custom-control custom-checkbox custom-control-inline">
+						  <input type="checkbox" class="custom-control-input" name="categories[]" id="{{$category->name}}" value="{{$category->name}}">
+						  <label class="custom-control-label" for="{{$category->name}}">{{$category->name}}</label>
+						</div>
+					@endforeach
 					</div>
 				</div><br>
 				<div class="row  justify-content-center">
