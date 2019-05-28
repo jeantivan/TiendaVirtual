@@ -23,10 +23,11 @@
         </form>
 	</div>
 	<hr>
-	<div class="d-flex flex-row flex-wrap justify-content-between">
-		@foreach($products as $product)
-			<div class="card shadow-sm mb-3" style="width: 48%;">
-				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top" style="max-height: 50% !important;">
+	<div class="row">
+	@foreach($products as $product)
+		<div class="col-xl-4 col-md-6 col-sm-8">
+			<div class="card shadow-sm mb-3 mx-sm-auto">
+				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top" style="height:100%;">
 				<div class="card-body">
 					<a href="{{route('admin.products.show', ['product' => $product->id])}}" class="card-link">
 						<h3 class="card-title">{{ $product->name }}</h3>
@@ -52,7 +53,8 @@
 					</p>
 				</div>
 			</div>
-		@endforeach
+		</div>
+	@endforeach
 	</div>
 	<div class="d-flex justify-content-center">
 		{{ $products->links() }}
