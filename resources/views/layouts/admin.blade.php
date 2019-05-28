@@ -103,30 +103,61 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item ">
+                            @if(url()->current() == route('admin.index'))
+                                <a href="{{route('admin.index')}}" class="nav-link active">
+                                    <i class="fas fa-tools"></i>
+                                    Dashboard
+                                </a>
+                            @else
                                 <a href="{{route('admin.index')}}" class="nav-link">
                                     <i class="fas fa-tools"></i>
                                     Dashboard
                                 </a>
+                            @endif
                             </li>
                             <li class="nav-item">
+                            @if(url()->current() == route('admin.orders.index'))
+                                <a class="nav-link active" href="{{ route('admin.orders.index')}}">
+                                    <i class="far fa-file"></i> Ordenes
+                                </a>
+                            @else
                                 <a class="nav-link" href="{{ route('admin.orders.index')}}">
                                     <i class="far fa-file"></i> Ordenes
                                 </a>
+                            @endif
                             </li>
                             <li class="nav-item">
+                            @if(url()->current() == route('admin.payments.index'))
+                                <a class="nav-link active" href="{{route('admin.payments.index')}}">
+                                    <i class="fas fa-money-check-alt"></i> Pagos
+                                </a>
+                            @else
                                 <a class="nav-link" href="{{route('admin.payments.index')}}">
                                     <i class="fas fa-money-check-alt"></i> Pagos
                                 </a>
+                            @endif
                             </li>
                             <li class="nav-item">
+                            @if(url()->current() == route('admin.products.index'))
+                                <a class="nav-link active" href="{{route('admin.products.index')}}">
+                                    <i class="fas fa-box-open"></i> Productos
+                                </a>
+                            @else
                                 <a class="nav-link" href="{{route('admin.products.index')}}">
                                     <i class="fas fa-box-open"></i> Productos
                                 </a>
+                            @endif
                             </li>
                             <li class="nav-item">
+                            @if(url()->current() == route('admin.categories.index'))
+                                <a class="nav-link active" href="{{route('admin.categories.index')}}">
+                                    <i class="fas fa-tags"></i> Categorias
+                                </a>
+                            @else
                                 <a class="nav-link" href="{{route('admin.categories.index')}}">
                                     <i class="fas fa-tags"></i> Categorias
                                 </a>
+                            @endif
                             </li>
                             
                         </ul>
