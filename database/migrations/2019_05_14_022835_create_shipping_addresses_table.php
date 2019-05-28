@@ -17,6 +17,7 @@ class CreateShippingAddressesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('address');
+            $table->timestamps();
         });
     }
 

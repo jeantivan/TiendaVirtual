@@ -19,8 +19,9 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 8,2);
             $table->boolean('in_stock')->default(1);
             $table->integer('quantity_available');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

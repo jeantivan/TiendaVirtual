@@ -17,6 +17,7 @@ class CreateCategoryProductTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('product_id');
+            $table->timestamps();
         });
     }
 
