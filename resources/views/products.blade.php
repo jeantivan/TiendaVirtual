@@ -21,27 +21,33 @@
         </div>
     </div>
     <hr>
-    <div class="d-flex flex-row flex-wrap mb-3">
+    <div class="row">
         @foreach($products as $product)
-            <div class="card shadow-sm mb-3 mx-2" style="width: 30%;">
-                <img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top">
-                <div class="card-body">
-                    <a href="{{ route('products.show', ['product' => $product->id])}}" class="card-link">
-                        <h4 class="card-title">{{ $product->name }}</h4>
-                    </a>
-                    <p class="card-text">
-                        {{ substr($product->description, 0, 100)}}...
-                    </p>
-                    <h5>Precio: <span class="badge badge-success p-2">{{ $product->price }} Bs</span></h5>
-                </div>
-                <div class="card-footer">
-                    @if(!$product->in_stock)
-                        <button class="btn btn-secondary disable float-right" disabled>No disponible</button>
+            <div class="col-xl-3 col-md-4 col-sm-12">
+                <div class="card shadow-sm mb-3 mx-2" style="height: 100%;">
+                    <img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top">
+                    <div class="card-body">
+                        <a href="{{ route('products.show', ['product' => $product->id])}}" class="card-link">
+                            <h4 class="card-title">{{ $product->name }}</h4>
+                        </a>
+                        <p class="card-text">
+                            {{ substr($product->description, 0, 100)}}...
+                        </p>
+                        <h5>Precio: <span class="badge badge-success p-2">{{ $product->price }} Bs</span></h5>
+                    </div>
+                    <div class="card-footer">
+                    @auth
+                        @if(!$product->in_stock)
+                            <button class="btn btn-secondary disable float-right" disabled>No disponible</button>
+                        @else
+                            <button class="btn btn-warning float-right add" data-id="{{ $product->id}}" {{Auth::check()?:'disabled'}}>
+                                Añadir al carrito <i class="fas fa-cart-plus"></i>
+                            </button>
+                        @endif
                     @else
-                        <button class="btn btn-warning float-right add" data-id="{{ $product->id}}" {{Auth::check()?:'disabled'}}>
-                            Añadir al carrito <i class="fas fa-cart-plus"></i>
-                        </button>
-                    @endif
+                        <a class="btn btn-secondary float-right" href="{{route('register')}}" data-toggle="tooltip" title="Para agregar este producto al carrito">Registrate</a>
+                    @endauth
+                    </div>
                 </div>
             </div>
         @endforeach  
