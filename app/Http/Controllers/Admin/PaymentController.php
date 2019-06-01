@@ -29,6 +29,18 @@ class PaymentController extends Controller
         return view('admin.payments', ['payments' => $payments]);
     }
 
+    /**
+     *
+     * Se muestran los detalles del pago
+     * 
+     */
+    public function show(Payment $payment)
+    {
+        $payment->load('order.user');
+
+        return view('admin.showPayment', ['payment' => $payment]);
+    }
+
     /*
      * Se recibe la confirmación de pago y se cambia
      * el status de la compra

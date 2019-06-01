@@ -74,10 +74,12 @@ class ProductController extends Controller
 
                 // Ruta de la imagen en local
                 $path = $image->store('public/images/products/' . $product->id);
+                $name = $image->getClientOriginalName();
 
                 // Se guarda la Ruta en la BBDD
                 $product->images()->create([
                     'path' => $path,
+                    'name' => $name,
                 ]);
             }
 
@@ -104,6 +106,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load('images', 'categories');
+
         return view('admin.showProduct', ['product' => $product]); 
     }
 
@@ -140,13 +143,15 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * 
+     * Enviar un producto a papelera. (Soft Delete)
+     * 
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->action('Admin\ProductController@trash')->with('message', 'Producto en la palera.');
     }
+
 }

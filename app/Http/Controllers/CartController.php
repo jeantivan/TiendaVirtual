@@ -22,7 +22,6 @@ class CartController extends Controller
      * Se muestran los productos que tiene el usuario en el carrito
      * en las sesion actual
      * 
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -37,11 +36,10 @@ class CartController extends Controller
     }
 
     /**
+     * 
      * Se almacenan los productos del usuario en un carrito
      * utilizando la sesion actual
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Cart $cart)
     {

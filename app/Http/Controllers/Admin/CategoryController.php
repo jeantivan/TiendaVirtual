@@ -18,9 +18,14 @@ class CategoryController extends Controller
     /**
      * Lista todos las Categorias disponibles
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        if (!$request) {
+            $categories = Category::orderBy('id', 'desc')->paginate(10);
+            return view('admin.categories')->with('categories', $categories);
+        }
+
+        $categories = Category::where('name', 'like', '%'. $request->s .'%')->orderBy('id', 'desc')->paginate(10);
 
         return view('admin.categories', ['categories' => $categories]);
     }
@@ -36,6 +41,14 @@ class CategoryController extends Controller
             'category' => 'required|string|max:50|min:3',
         ]);
 
+        // Si la categoría existe no la guardamos
+        if (Category::where('name', $request->category)->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => 'La categoría ya existe.'
+            ]);
+        }
+
         // Luego se guarda la nueva Categoría en la BBDD
         $category = new Category;
 
@@ -46,28 +59,11 @@ class CategoryController extends Controller
         $category->load('products');
 
         // Retornamos el nuevo Registro
-        return $category;
+        return response()->json([
+            'message' => 'Categoría creada con éxito',
+            'category' => $category
+        ]);
 
     }
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Eliminamos una categoría
-     *
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
     /**
@@ -40,13 +41,5 @@ class ProductController extends Controller
         // Se retorna una vista y se le pasa el Producto
         return view('showProduct', ['product' => $product]);
     }
-
-    
-
-    
-
-    
-
-
 
 }

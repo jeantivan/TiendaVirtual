@@ -15,7 +15,7 @@
 			<div class="input-group">
 				<input type="text" name="s" class="form-control" placeholder="Nombre del Producto...">
 				<div class="input-group-append">
-					<button class="btn btn-primary" type="submit">
+					<button class="btn btn-info" type="submit">
 						Buscar <i class="fas fa-search"></i>
             		</button>
 				</div>	
@@ -27,7 +27,7 @@
 	@foreach($products as $product)
 		<div class="col-xl-4 col-md-6 col-sm-8">
 			<div class="card shadow-sm mb-3 mx-sm-auto">
-				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top" style="height:100%;">
+				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top d-block img-fluid" style="width: 100%;">
 				<div class="card-body">
 					<a href="{{route('admin.products.show', ['product' => $product->id])}}" class="card-link">
 						<h3 class="card-title">{{ $product->name }}</h3>

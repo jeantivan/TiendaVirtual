@@ -29,6 +29,7 @@ class OrderController extends Controller
     }
 
     /**
+     * 
      * Se muestran los detalles de una Orden
      * 
      */

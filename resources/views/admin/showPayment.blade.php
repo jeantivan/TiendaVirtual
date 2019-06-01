@@ -1,24 +1,21 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-3">
-	<h1 class="title">Pagos.</h1>
+<div class="container my-3">
+	<h1 class="title">Pago.</h1>
 	<hr>
-
-@foreach($payments as $payment)
 	<div class="card shadow-sm my-3">
 		<div class="card-header">
-			<h3>Número de pago <a href="{{route('admin.payments.show', ['payment' => $payment->id])}}">#{{$payment->id}}</a></h3>
+			<h3>Número de Orden: <a href="{{route('admin.orders.show' , ['order' => $payment->order_id])}}" data-toggle="tooltip" title="Ver Orden">#{{$payment->order_id}}</a>
+			</h3>
 		</div>
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-6">
-					<h5>Número de Orden: <a href="{{route('admin.orders.show' , ['order' => $payment->order_id])}}"><span class="badge badge-dark">#{{$payment->order_id}}</span></a>
-					</h5>
 					<h5>Monto de la Compra: <span class="badge badge-success">{{$payment->order->total}} Bs</span></h5>
 					<h5>Número de Referencia: <span class="badge badge-info">#{{$payment->nro_ref}}</span></h5>
 					<h5>Banco: <span class="badge badge-secondary">{{ucwords($payment->banco)}}</span></h5>
-					<h5>Pagado en: <strong>{{$payment->created_at}}</strong></h5>
+					<h5>Pagado en: <strong><i>{{$payment->created_at}}</strong></i></h5>
 				</div>
 				<div class="col-md-6">
 					<h5>
@@ -36,8 +33,6 @@
 			
 		</div>
 	</div>
-@endforeach
-{{ $payments->links()}}
-
 </div>
+
 @endsection

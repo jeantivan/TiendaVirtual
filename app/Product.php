@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes; // Permitir enviar producto a la papelera
+
     // Columnas permitidas para llenado en masa
     protected $fillable = [
         'name', 'price', 'description', 'quantity_available'

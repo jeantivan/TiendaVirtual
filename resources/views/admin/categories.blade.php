@@ -19,13 +19,13 @@
 		Crear Categoría
 	</button>
 	<div id="add" class="collapse my-3">
-		<form class="form-group row" id="addForm">
+		<form class="form-group row" id="addCategory">
 			<label for="name" class="col-auto col-form-label">Nombre:</label>
-			<div class="col-auto">
+			<div class="col-5">
 				<div class="input-group">
-					<input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Tecnología">
+					<input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="Tecnología" required maxlength="30" min="3">
 					<div class="input-group-append">
-						<button class="btn btn-success btn-sm" id="addCategory">
+						<button type="submit" class="btn btn-success btn-sm">
 							Agregar <i class="fas fa-plus"></i>
 	            		</button>
 					</div>
@@ -34,9 +34,9 @@
 		</form>
 	</div>
 	<hr>
-	<div class="d-flex flex-row flex-wrap" id="categories">
+	<div class="d-inline-flex flex-row flex-wrap" id="categories">
 		@foreach($categories as $category)
-			<button href="#" class="btn btn-lg btn-outline-danger mx-2" data-id="{{$category->id}}">{{$category->name}}</button>
+			<button class="btn btn-danger mb-2 mx-2" data-id="{{$category->id}}">{{$category->name}}</button>	
 		@endforeach	
 	</div>
 </div>

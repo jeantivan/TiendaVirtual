@@ -17,6 +17,27 @@ function firstCharToUpperCase(string){
 	return str;
 }
 
+// Cambiar las pestañas de ordenes en el 
+// Dashboard del Administrador
+function tabOrder(event, type, color){
+    let i, tabcontent, tablinks;
+
+    tabcontent = $('.tabcontent');
+    for(i = 0; i < tabcontent.length; i++){
+        let tab = tabcontent.eq(i);
+        tab.css('display', 'none');
+    }
+
+    tablinks = $('.tablink');
+    for (i = 0; i < tablinks.length; i++){
+        let tab = tablinks.eq(i);
+        tab.removeClass('active');
+    }
+
+    $(`#${type}`).css('display', 'block');
+    $(event.target).addClass('active');
+}
+
 // Petición AJAX para agregar productos al carrito de compras
 function addToCart(id){
     $.ajax({
@@ -72,16 +93,30 @@ function addCategory(category){
         type: 'POST',
         data: {
             category: category,
+        },
+        success: (response) => {
+
+            let category = 
+            `<button
+                class="btn btn-danger mx-2 mb-2" 
+                data-id=${response.category.id}>
+                ${response.category.name}</button>`;
+            $('#categories').append(category).fadeIn("slow");
+            console.log(response);
         }
     })
     .done(function(response) {
-        alert('Categoría creada con éxito.');
-        let category = `<button href="#" class="btn btn-outline-danger mx-2" data-id=${response.id}>
-                        ${response.name}</button>`;
-        $('#categories').append(category).fadeIn("slow");
+        alert(response.message);
+        console.log(response);
     })
     .fail(function(response) {
-        alert(response);
+        if (response.status == 400) {
+            alert(response.message);
+        } else {
+            alert('La categoría no pudo ser creada');
+        }
+        console.log(response);
+        
     });
 }
 
@@ -91,7 +126,7 @@ function verifyPayment(order_id){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: `${location.pathname}/verified`,
+        url: '/admin/payments/verified',
         type: 'POST',
         data: {
             order_id: order_id,
@@ -146,17 +181,38 @@ $('.add').on('click', function(event){
 // Eliminar un Producto del carrito
 $('.delete').on('click', function(event){
     event.preventDefault();
-    $(event.target).append(' <span class="spinner-border spinner-border-sm"></span>')
+    let container = '<span class="spinner-border spinner-border-sm"></span>';
+    $(event.target).append(container)
     let id = $(this).data('id');
     deleteFromCart(id);
 });
 
 
 // Agregar categorias con AJAX y jQuery
-$('#addCategory').on('click', function(event) {
+$('#addCategory').on('submit', function(event) {
     event.preventDefault(); 
     let category = firstCharToUpperCase($('#name').val());
     addCategory(category);
+});
+
+// Eliminar categorias con AJAX y jQuery
+$('.delete-category').on('click', function(event){
+    event.preventDefault();
+
+    let eliminar = confirm('¿Seguro que desea eliminar la categoría?');
+
+    if (eliminar){
+
+        let id = $(this).data('id');
+        alert(`${location.pathname}/${id}`)
+        deleteCategory(id);
+
+    } else {
+
+        return;
+
+    }
+
 });
 
 
@@ -193,8 +249,28 @@ $('#ship').on('click', function (event){
     }
 });
 
+// Pestaña de orden que se muestra 
+// por defecto en el Dashboard del Administrador
+$('#defaultTab').click();
+
+$('.tablink').on('click', function(event){
+    event.preventDefault();
+
+    let type = $(event.target).data('type');
+    let color = $(event.target).data('color')
+    tabOrder(event, type, color);
+    
+});
+
+// Activar los tooltip de Bootstrap4
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('body').css('display', 'block').fadeIn('slow');
+    $('#loader_container').fadeOut().css('display', 'none');
+});
+
 // Preloader
-window.onload = function(){
+() => {
     $('body').css('display', 'block').fadeIn('slow');
     $('#loader_container').fadeOut().css('display', 'none');
 }

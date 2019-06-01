@@ -1,39 +1,108 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-3">
-	<div class="clearfix">
-		<h1 id="title" class="title float-left">{{$product->name}}</h1>
-		<button type="button" class="btn btn-warning float-right" data-toggle="modal" data-target="#edit">
-			Editar Producto
-		</button>
-	</div>
+<div class="container my-3">
+	<h1 class="title">{{ $product->name }}</h1>
 	<hr>
-	<div class="container">
-		<h2 class="title">Imagenes.</h2>
-		<hr>
-		@foreach($product->images as $image)
-			<img src="{{ Storage::url($image->path) }}" class="mr-3 my-2 border border-1" width="200">
-		@endforeach
+	<div class="row py-2">
+		<div class="col-12 my-2">
+			<h2 class="title">Imagenes.</h2>
+			<hr>
+			<div id="images" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+					@foreach($product->images as $image)
+						<div class="carousel-item {{$loop->first ? 'active':''}}" style="max-height: 450px;">
+							<img src="{{Storage::url($image->path)}}" class="d-block w-50 mx-auto" >
+						</div>
+					@endforeach
+					<a class="carousel-control-prev" href="#images" role="button" data-slide="prev">
+    					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  					</a>
+					<a class="carousel-control-next" href="#images" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 my-2">
+			<h2 class="title">Detalles.</h2>
+			<hr>
+			<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<h5>
+						<strong>ID del Producto:</strong> <span class="badge badge-dark shadow">#{{$product->id}}</span>
+					</h5>
+					<h5>
+						<strong>Precio Unitario:</strong> <span class="badge badge-success shadow">{{$product->price}} Bs</span>
+					</h5>
+				@if($product->in_stock)
+					<h5>
+						<strong>Producto:</strong>
+						<span class="badge badge-info text-light shadow">Disponible</span>
+					</h5>
+				@else
+					<h5>
+						<stong>Producto:</stong>
+						<span class="badge badge-danger shadow">
+							Agotado
+						</span>
+					</h5>
+				@endif
+					<h5>
+						<strong>Cantidad en Stock:</strong> <span class="badge badge-info text-light shadow">{{$product->quantity_available}}</span>
+					</h5>
+					<h5>
+						<strong>Creado en:</strong> <i>{{$product->created_at}}</i>
+					</h5>
+					<h5>
+						<strong>Última actualización:</strong> <i>{{$product->updated_at}}</i>
+					</h5>
+				</div>
+				<div class="col-md-6 col-sm-12">
+					<h4><strong>Opciones:</strong></h4>
+					<button type="button" class="btn btn-warning my-2 shadow" data-toggle="modal" data-target="#edit">Editar Producto <i class="fas fa-edit"></i>
+					</button>
+				@if(!$product->trashed())
+					<form action="{{route('admin.products.destroy', ['product' => $product->id])}}" method="POST" class="form-inline">
+						@csrf
+						@method('delete')
+						<button class="btn btn-danger shadow my-2" type="submit">Enviar a la Palera <i class="fas fa-trash"></i>
+						</button>
+					</form>
+				@else
+					<button class="btn btn-danger shadow my-2" >Restaurar <i class="fas fa-restore"></i>
+					</button>
+				@endif
+				</div>
+			</div>
+		</div>
 	</div>
-	<hr>
-	<div class="container">
-		<h2 class="title">Detalles.</h2>
-		<hr>
-		<p class="h4">Nombre del producto: {{ $product->name }}</p>
-		<p class="h4">Precio del producto: <span class="badge badge-dark">{{ $product->price }} $</span></p>
-		<p class="h4">Cantidad Disponible: <span class="badge badge-primary">{{ $product->quantity_available }}</span></p>
-		<p class="h4">Creado el: {{ $product->created_at }}</p>
-		<p class="h4">Ultima actualización: {{ $product->updated_at }}</p>
+	<div class="row my-3">
+		<div class="col-12">
+			<h2 class="title">Descripción</h2>
+			<hr>
+			<div class="h5 text-justify">
+				{{$product->description}}
+			</div>
+		</div>
 	</div>
-	<hr>
-	<div class="container">
-		<h2 class="title">Categorias.</h2>
-		@foreach($product->categories as $category)
-			<p class="h4 ml-2"><span class="badge badge-pill badge-primary">
-				{{$category->name}}
-			</span></p>
-		@endforeach
+
+	<div class="row my-3">
+		<div class="col-12">
+			<h2 class="title">Categorias.</h2>
+			<hr>
+			<div class="d-flex flex-row flex-wrap" id="categories">
+				@if(count($product->categories))
+					@foreach($product->categories as $category)
+						<p class="h3 ml-2"><span class="badge badge-pill badge-primary">
+							{{$category->name}}
+						</span></p>
+					@endforeach	
+				@else
+					<p class="title h5 text-danger">El producto todavía no tiene una categoría asignada.</p>
+				@endif
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="edit">
@@ -96,7 +165,6 @@
 	</div>
 </div>
 @if(session('message'))
-
 	<div class="alert alert-success fade show alert-dismissible fixed-top">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong>{{ session('message') }}</strong>

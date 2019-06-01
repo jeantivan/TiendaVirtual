@@ -23,13 +23,13 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="bg-light">
-    <div id="loader_container">
+    <!--<div id="loader_container">
         <div id="loader1">
             <div id="loader2">
                 <div id="loader3"></div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div id="app">
         <nav class="navbar navbar-expand-md fixed-top bg-light navbar-light flex-md-nowrap p-1 shadow-sm">
@@ -137,16 +137,29 @@
                                 </a>
                             @endif
                             </li>
-                            <li class="nav-item">
-                            @if(url()->current() == route('admin.products.index'))
-                                <a class="nav-link active" href="{{route('admin.products.index')}}">
+                            <li class="nav-item dropdown">
+                            @if(url()->current() == route('admin.products.index') || url()->current() == route('admin.products.trash'))
+                                <a class="nav-link dropdown-toggle active" href="#" id="products" data-toggle="dropdown">
                                     <i class="fas fa-box-open"></i> Productos
                                 </a>
                             @else
-                                <a class="nav-link" href="{{route('admin.products.index')}}">
+                                <a class="nav-link dropdown-toggle" href="#" id="products" data-toggle="dropdown">
                                     <i class="fas fa-box-open"></i> Productos
                                 </a>
                             @endif
+                                <div class="dropdown-menu">
+                                @if(url()->current() == route('admin.products.index'))
+                                    <a href="{{route('admin.products.index')}}" class="dropdown-item active"><i class="fas fa-box-open"></i> Todos</a>
+                                @else
+                                    <a href="{{route('admin.products.index')}}" class="dropdown-item"><i class="fas fa-box-open"></i> Todos</a> 
+                                @endif
+                                @if(url()->current() == route('admin.products.trash')) 
+                                    <a href="{{route('admin.products.trash')}}" class="dropdown-item active"><i class="fas fa-trash"></i> Papelera</a>
+                                @else
+                                    <a href="{{route('admin.products.trash')}}" class="dropdown-item"><i class="fas fa-trash"></i> Papelera</a>
+                                @endif
+
+                                </div>
                             </li>
                             <li class="nav-item">
                             @if(url()->current() == route('admin.categories.index'))

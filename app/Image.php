@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     protected $fillable = [
-        'product_id', 'path' 
+        'product_id', 'path', 'name'
     ];
 
     // Relaciones entre modelos

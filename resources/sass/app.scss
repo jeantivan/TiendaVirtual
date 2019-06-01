@@ -1,5 +1,5 @@
 
-// Fonts
+// Fuentes
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
@@ -90,8 +90,8 @@
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  z-index: 100; 
+  padding: 48px 0 0; 
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
@@ -149,5 +149,111 @@
   color: $red !important;
 }
 
+/* Dashboard del Administrador */
 
+/* Productos del Dashboard */
+.scale{
+  transition: transform 0.2s ;
+}
 
+.scale:hover{
+  transform: scale(1.1, 1.1);
+}
+
+/* Pestañas de las Ordenes */
+.tablink {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #DBDDDF;
+  padding: 14px 16px;
+  font-size: 17px;
+  position: relative;
+  transition: all .4s;
+  
+  &.created{
+    border-top-left-radius: 8px;
+  }
+
+  &.confirmed{
+    border-top-right-radius: 8px;
+  }
+
+  &:focus{
+    outline: none;
+  }
+
+  &:hover{
+    background-color: #B1B1B1;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 3px;
+    background-color: $orange;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: all .4s;
+  }
+
+  &:hover:before{
+    width: 100%;
+  }
+
+}
+
+.confirmed:before{
+  background-color: $green;
+}
+
+.created:before{
+  background-color: $orange;
+}
+
+.paid:before{
+  background-color: $teal;
+}
+
+.created.active{
+  color: white;
+  background-color: $orange; 
+}
+
+.paid.active{
+  color: white;
+  background-color: $teal; 
+}
+
+.confirmed.active{
+  color: white;
+  background-color: $green; 
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: none;
+  animation: tabEffect 1s;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+#Confirmed{
+  background-color: $green;
+}
+
+#Paid{
+  background-color: $teal;
+}
+
+#Created{
+  background-color: $orange;
+}
+
+@keyframes tabEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

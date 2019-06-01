@@ -36850,6 +36850,29 @@ function firstCharToUpperCase(string) {
   var str = string.toLowerCase();
   str = str.charAt(0).toUpperCase() + str.slice(1);
   return str;
+} // Cambiar las pestañas de ordenes en el 
+// Dashboard del Administrador
+
+
+function tabOrder(event, type, color) {
+  var i, tabcontent, tablinks;
+  tabcontent = $('.tabcontent');
+
+  for (i = 0; i < tabcontent.length; i++) {
+    var tab = tabcontent.eq(i);
+    tab.css('display', 'none');
+  }
+
+  tablinks = $('.tablink');
+
+  for (i = 0; i < tablinks.length; i++) {
+    var _tab = tablinks.eq(i);
+
+    _tab.removeClass('active');
+  }
+
+  $("#".concat(type)).css('display', 'block');
+  $(event.target).addClass('active');
 } // Petición AJAX para agregar productos al carrito de compras
 
 
@@ -36900,13 +36923,23 @@ function addCategory(category) {
     type: 'POST',
     data: {
       category: category
+    },
+    success: function success(response) {
+      var category = "<button\n                class=\"btn btn-danger mx-2 mb-2\" \n                data-id=".concat(response.category.id, ">\n                ").concat(response.category.name, "</button>");
+      $('#categories').append(category).fadeIn("slow");
+      console.log(response);
     }
   }).done(function (response) {
-    alert('Categoría creada con éxito.');
-    var category = "<button href=\"#\" class=\"btn btn-outline-danger mx-2\" data-id=".concat(response.id, ">\n                        ").concat(response.name, "</button>");
-    $('#categories').append(category).fadeIn("slow");
+    alert(response.message);
+    console.log(response);
   }).fail(function (response) {
-    alert(response);
+    if (response.status == 400) {
+      alert(response.message);
+    } else {
+      alert('La categoría no pudo ser creada');
+    }
+
+    console.log(response);
   });
 } // Verificar el pago de una orden mediante AJAX y jQuery
 
@@ -36916,7 +36949,7 @@ function verifyPayment(order_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: "".concat(location.pathname, "/verified"),
+    url: '/admin/payments/verified',
     type: 'POST',
     data: {
       order_id: order_id
@@ -36962,15 +36995,29 @@ $('.add').on('click', function (event) {
 
 $('.delete').on('click', function (event) {
   event.preventDefault();
-  $(event.target).append(' <span class="spinner-border spinner-border-sm"></span>');
+  var container = '<span class="spinner-border spinner-border-sm"></span>';
+  $(event.target).append(container);
   var id = $(this).data('id');
   deleteFromCart(id);
 }); // Agregar categorias con AJAX y jQuery
 
-$('#addCategory').on('click', function (event) {
+$('#addCategory').on('submit', function (event) {
   event.preventDefault();
   var category = firstCharToUpperCase($('#name').val());
   addCategory(category);
+}); // Eliminar categorias con AJAX y jQuery
+
+$('.delete-category').on('click', function (event) {
+  event.preventDefault();
+  var eliminar = confirm('¿Seguro que desea eliminar la categoría?');
+
+  if (eliminar) {
+    var id = $(this).data('id');
+    alert("".concat(location.pathname, "/").concat(id));
+    deleteCategory(id);
+  } else {
+    return;
+  }
 }); // Confirmar el pago de una orden
 
 $('.confirm-payment').on('click', function (event) {
@@ -36995,12 +37042,27 @@ $('#ship').on('click', function (event) {
   } else {
     return;
   }
-}); // Preloader
+}); // Pestaña de orden que se muestra 
+// por defecto en el Dashboard del Administrador
 
-window.onload = function () {
+$('#defaultTab').click();
+$('.tablink').on('click', function (event) {
+  event.preventDefault();
+  var type = $(event.target).data('type');
+  var color = $(event.target).data('color');
+  tabOrder(event, type, color);
+}); // Activar los tooltip de Bootstrap4
+
+$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip();
   $('body').css('display', 'block').fadeIn('slow');
   $('#loader_container').fadeOut().css('display', 'none');
-};
+}); // Preloader
+
+(function () {
+  $('body').css('display', 'block').fadeIn('slow');
+  $('#loader_container').fadeOut().css('display', 'none');
+});
 
 /***/ }),
 

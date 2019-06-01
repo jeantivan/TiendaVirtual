@@ -31,7 +31,7 @@
     			@endphp
 				<tr>
 					<td class="text-center">
-						<img src="{{$image}}" class="rounded" width="80">
+						<img src="{{Storage::url($image)}}" class="rounded" width="80">
 					</td>
 					<td class="text-center h5 align-middle">
 						<strong>{{$product->name}}</strong>
