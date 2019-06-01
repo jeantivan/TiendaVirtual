@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 
 use App\Product;
 use App\Category;
+use App\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -25,11 +27,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if (!$request) {
-            $products = Product::orderBy('id', 'desc')->paginate(10);
+            $products = Product::orderBy('updated_at', 'desc')->paginate(10);
             return view('admin.products')->with('products', $products);
         }
 
-        $products = Product::where('name', 'like', '%'. $request->s .'%')->orderBy('id', 'desc')->paginate(10);
+        $products = Product::where('name', 'like', '%'. $request->s .'%')->orderBy('updated_at', 'desc')->paginate(10);
 
         $products->load('images');
         return view('admin.products')->with('products', $products);
@@ -143,15 +145,69 @@ class ProductController extends Controller
     }
 
     /**
+     *
+     * Eliminar un producto completamente
+     * 
+     */
+    public function destroy($product)
+    {
+
+        $product = Product::onlyTrashed()->where('id', $product)->first();
+        
+        // Se borran las categorias asignadas al producto.
+        $product->categories()->detach();
+
+        // Se elimina las imagenes de la BBDD
+        foreach($product->images as $image){
+            Image::destroy($image->id);
+        }
+
+        // Se borra la carpeta que contiene las ímagenes del producto
+        Storage::deleteDirectory('public/images/products/'. $product->id);
+        
+
+        // Se elimina el producto
+        $product->forceDelete();
+
+        return  redirect()->action('Admin\ProductController@trash')->with('message', 'Producto eliminado con éxito.');
+
+
+    }
+
+    /**
      * 
      * Enviar un producto a papelera. (Soft Delete)
      * 
      */
-    public function destroy(Product $product)
+    public function toTrash(Product $product)
     {
         $product->delete();
 
-        return redirect()->action('Admin\ProductController@trash')->with('message', 'Producto en la palera.');
+        return redirect()->action('Admin\ProductController@index')->with('message', 'Producto en la palera.');
     }
+
+    /**
+     * 
+     * Muestra los productos en la papelera.
+     *
+     */
+    public function trash()
+    {
+        $products = Product::onlyTrashed()->get();
+        return view('admin.trash', ['products' => $products]);
+    }
+
+    /**
+     * 
+     * Restaura un producto de la papelera
+     *
+     */
+    public function restore($id)
+    {
+        $product = Product::withTrashed()->where('id', $id)->restore();
+
+        return redirect()->action('Admin\ProductController@index')->with('message', 'Producto restaurado.');
+    }
+
 
 }

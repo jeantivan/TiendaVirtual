@@ -7,6 +7,7 @@
 | Aquí estan registradas todas las rutas que maneja la aplicación 
 | 
 */
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,11 +28,14 @@ Route::prefix('admin')->group(function () {
 	Route::name('admin.')->group( function (){
 
 		// Productos
+		
 		Route::resource('products', 'Admin\ProductController')->except('edit');
 
-		Route::get('/products/trash', 'Admin\TrashController@trash')->name('products.trash');
+		Route::post('/products/toTrash/{product}', 'Admin\ProductController@toTrash')->name('products.totrash');
 
-		Route::post('/products/restore/{product}', 'Admin\TrashController@restore')->name('products.restore');
+		Route::get('/products/trash', 'Admin\ProductController@trash')->name('products.trash');
+
+		Route::post('/products/restore/{id}', 'Admin\ProductController@restore')->name('products.restore');
 
 
 		// Ordenes
@@ -47,21 +51,20 @@ Route::prefix('admin')->group(function () {
     	->only('index', 'store');
 		
 		// Dashboard de Administrador
-		Route::get('/dashboard', 'Admin\AdminController@index')->name('index');
+		Route::get('/', 'Admin\AdminController@index')->name('index');
 
 	});
 
 });
 
-Route::get('/trash', function(){
-	//$products = App\Product::onlyTrashed()->get();
-	//return $products;
-	//return view('admin.trash', ['products' => $products]);
-	if (view()->exists('admin.trash')) {
-		echo "La vista existe";
-	} else{
-		echo "No existe";
+Route::get('/test', function(){
+
+	if (Storage::deleteDirectory('public/images/products/152')) {
+		echo "HECHO";
+	} else {
+		echo "NO HECHO";
 	}
+
 });
 
 Route::prefix('users')->group(function(){

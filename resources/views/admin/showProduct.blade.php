@@ -63,9 +63,8 @@
 					<button type="button" class="btn btn-warning my-2 shadow" data-toggle="modal" data-target="#edit">Editar Producto <i class="fas fa-edit"></i>
 					</button>
 				@if(!$product->trashed())
-					<form action="{{route('admin.products.destroy', ['product' => $product->id])}}" method="POST" class="form-inline">
+					<form action="{{route('admin.products.totrash', ['product' => $product->id])}}" method="POST" class="form-inline">
 						@csrf
-						@method('delete')
 						<button class="btn btn-danger shadow my-2" type="submit">Enviar a la Palera <i class="fas fa-trash"></i>
 						</button>
 					</form>

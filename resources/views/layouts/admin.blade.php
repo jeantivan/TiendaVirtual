@@ -23,13 +23,13 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="bg-light">
-    <!--<div id="loader_container">
+    <div id="loader_container">
         <div id="loader1">
             <div id="loader2">
                 <div id="loader3"></div>
             </div>
         </div>
-    </div>-->
+    </div>
 
     <div id="app">
         <nav class="navbar navbar-expand-md fixed-top bg-light navbar-light flex-md-nowrap p-1 shadow-sm">
@@ -99,7 +99,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-secondary sidebar navbar-dark">
+                <nav class="col-lg-2 d-none d-md-block bg-secondary sidebar navbar-dark">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item ">
@@ -148,6 +148,11 @@
                                 </a>
                             @endif
                                 <div class="dropdown-menu">
+                                @if(url()->current() == route('admin.products.create'))
+                                    <a href="{{route('admin.products.create')}}" class="dropdown-item active"><i class="fas fa-plus"></i> Agregar</a>
+                                @else
+                                    <a href="{{route('admin.products.create')}}" class="dropdown-item"><i class="fas fa-plus"></i> Agregar</a> 
+                                @endif
                                 @if(url()->current() == route('admin.products.index'))
                                     <a href="{{route('admin.products.index')}}" class="dropdown-item active"><i class="fas fa-box-open"></i> Todos</a>
                                 @else
