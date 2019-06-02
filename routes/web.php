@@ -16,7 +16,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('products', 'ProductController')->only('index', 'show');
-Route::get('/categories', 'CategoryController@index')->name('categories');
+Route::resource('categories', 'CategoryController')->only('index','show');
 
 Route::get('/contact', function(){
 	return view('contact');
@@ -54,16 +54,6 @@ Route::prefix('admin')->group(function () {
 		Route::get('/', 'Admin\AdminController@index')->name('index');
 
 	});
-
-});
-
-Route::get('/test', function(){
-
-	if (Storage::deleteDirectory('public/images/products/152')) {
-		echo "HECHO";
-	} else {
-		echo "NO HECHO";
-	}
 
 });
 
