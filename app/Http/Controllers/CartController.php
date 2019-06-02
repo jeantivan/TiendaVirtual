@@ -57,7 +57,7 @@ class CartController extends Controller
             $cart->session_key = $session_key;
             $cart->save();
 
-            return response('success', 200)->json([
+            return response()->json([
                 'message' => 'Producto agregado al carrito con éxito',
             ]);
         }
