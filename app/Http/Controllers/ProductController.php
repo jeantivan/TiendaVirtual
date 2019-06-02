@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 
 
@@ -14,7 +15,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {   
         if (!$request) {
             $products = Product::orderBy('id', 'desc')->paginate(9);
             return view('products', ['products' => $products]);
