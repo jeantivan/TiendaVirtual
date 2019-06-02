@@ -2,11 +2,11 @@
 
 @section("content")
 <div class="container-fluid my-3">
-    <div class="row align-content-center">
-        <div class="col-md-7">
+    <div class="row clearfix">
+        <div class="col-md-8 col-sm-12 float-left d-sm-block">
             <h1 class="title">Productos</h1>
         </div>
-        <div class="col-md-5 ml-auto">
+        <div class="col-md-4 col-sm-12 float-md-right float-sm-left">
             <form action="{{route('products.index')}}" method="GET" class="form-inline">
                 <div class="input-group">
                     <input type="text" name="s" class="form-control" placeholder="Nombre del Producto...">
@@ -23,7 +23,7 @@
     <hr>
     <div class="row">
         @foreach($products as $product)
-            <div class="col-xl-3 col-md-4 col-sm-12">
+            <div class="col-xl-3 col-md-4 col-sm-12 mb-3">
                 <div class="card shadow-sm mb-3 mx-2" style="height: 100%;">
                     <img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top">
                     <div class="card-body">

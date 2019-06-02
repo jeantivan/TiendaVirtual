@@ -26,8 +26,8 @@
 @if(count($products))
 	<div class="row">
 	@foreach($products as $product)
-		<div class="col-xl-3 col-md-4 col-sm-12">
-			<div class="card shadow-sm mb-3 mx-auto" style="height: 100%;">
+		<div class="col-xl-3 col-md-4 col-sm-12 mb-3">
+			<div class="card shadow-sm " style="height: 100%;">
 				<img src="{{ Storage::url($product->images()->first()->path) }}" class="card-img-top d-block img-fluid" style="width: 100%;">
 				<div class="card-body">
 					<a href="{{route('admin.products.show', ['product' => $product->id])}}" class="card-link">
