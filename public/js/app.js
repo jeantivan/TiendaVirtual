@@ -36900,12 +36900,11 @@ function deleteFromCart(id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: "".concat(location.pathname, "/").concat(id),
+    url: "/users/carts/".concat(id),
     type: 'DELETE'
   }).done(function () {
-    // Si se elimina el producto se elimina la columna del DOM
-    $('tr').remove("#".concat(id));
     alert('Producto eliminado con éxito.');
+    location.reload();
   }).fail(function (response) {
     alert('No se pudo eliminar el producto del Carrito.');
     $('button').remove('span');
@@ -36919,7 +36918,7 @@ function addCategory(category) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: location.pathname,
+    url: '/admin/categories',
     type: 'POST',
     data: {
       category: category
