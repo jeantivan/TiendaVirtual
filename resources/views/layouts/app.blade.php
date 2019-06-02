@@ -47,7 +47,7 @@
                             <a href="{{route('products.index')}}" class="nav-link"><i class="fas fa-store-alt"></i> Tienda</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('categories')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
+                            <a href="{{route('categories.index')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('contact')}}" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
