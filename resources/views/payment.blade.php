@@ -83,6 +83,8 @@
 	</div>
 </div>
 <div class="container my-4">
+	<h1 class="title text-oscuro">Cuentas bancarias.</h1>
+	<hr>
 	<div class="media p-3 my-2 border border-secondary shadow-sm rounded-lg" id="banesco">
   		<img src="{{Storage::url('public/images/logos/logo-banesco.jpg')}}" class="align-self-center mr-3 rounded-circle border border-dark" alt="logo-banesco.jpg" width="128">
 		<div class="media-body">
