@@ -57,9 +57,11 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="float-right">
-			<a href="#order" data-toggle="modal" class="btn btn-success ml-2">Continuar</a>
-			<a href="{{route('users.carts.index')}}" class="btn btn-danger">Cancelar</a>
+		<div class="clearfix">
+			<div class="float-right">
+				<a href="#order" data-toggle="modal" class="btn btn-success ml-2">Continuar</a>
+				<a href="{{route('users.carts.index')}}" class="btn btn-danger">Cancelar</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -71,13 +73,13 @@
         	<h4 class="modal-title title text-white">Procesar Orden</h4>
         	<button type="button" class="close text-white" data-dismiss="modal">&times;</button>
         </div>
-        
+        <form action="{{route('users.orders.store')}}" method="POST" id="orderForm">
+        	@csrf
         <div class="modal-body">
 
         	<div class="container justify-content-center">
         		<h5 class="text-center mt-2">Ingrese la dirección donde serán enviados los productos de su compra.</h5>
-        		<form action="{{route('users.orders.store')}}" method="POST" id="orderForm">
-        			@csrf
+        		
 	        		<div class="row form-group">
 	        			<label for="address" class="col-md-4 col-form-label text-md-right">Direccion de Envio:</label>
 	        			<div class="col-md-8">
@@ -105,16 +107,16 @@
 					<input type="hidden" name="qtys[]" value="{{$product->qty}}">
 	        	@endforeach
 	        		<input type="hidden" name="total" value="{{$total}}">
-        		</form>
+        		
         	</div>
         </div>
         
         <!-- Modal footer -->
         <div class="modal-footer">
-        	<button class="btn btn-success" name="enviar"onclick="event.preventDefault(); $('#orderForm').submit();">Enviar</button>
+        	<button class="btn btn-success" name="enviar" type="submit">Enviar</button>
         	<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
         </div>
-			
+		</form>	
 		</div>
 	</div>
 </div>

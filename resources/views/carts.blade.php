@@ -64,12 +64,13 @@
 				</form>
 			</tbody>
 		</table>
-
-		<button 
-			class="btn btn-success float-right my-2"
-			onclick="event.preventDefault(); $('#cartForm').submit();">
-			Procesar Orden
-		</button>
+		<div class="clearfix">
+			<button 
+				class="btn btn-success float-right my-2"
+				onclick="event.preventDefault(); $('#cartForm').submit();">
+				Procesar Orden
+			</button>
+		</div>
 	@else
 		<h2 class="display-4 text-danger">
 			No hay productos en el carrito.
