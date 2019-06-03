@@ -151,16 +151,18 @@ class OrderController extends Controller
     }
 
 
-    public function invoice($id){
-
+    public function invoice($id)
+    {
         $order = Order::find($id);
-        $order->load('orderDetails');
+        $order->load('orderDetails.product', 'user', 'payment');
+
+        $order->total_products = $order->orderDetails()->selectRaw('SUM(quantity) as total_products')->first();
 
         $pdf = PDF::loadView('invoice', ['order' =>$order]);
 
-        //return $pdf->stream();
+        return $pdf->stream('invoice.pdf');
 
-        return view('invoice', ['order' => $order]);
+        //return view('invoice', ['order' => $order]);
 
     }
 }
