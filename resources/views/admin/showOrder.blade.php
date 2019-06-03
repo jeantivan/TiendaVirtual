@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-3">
+<div class="container-fluid mt-3">
 	<h1 class="title">Orden <span class="text-info">#{{ $order->id }}</span></h1>
 	<hr>
 	<div class="card shadow-sm">

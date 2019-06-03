@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container my-3">
+<div class="container mt-3">
 	<h1 class="title">{{ $product->name }}</h1>
 	<hr>
 	<div class="row py-2">

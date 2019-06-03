@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-3">
+<div class="container-fluid mt-3">
 	<div class="card shadow-sm">
 		<div class="card-header bg-dark text-white">
 			<div class="row">

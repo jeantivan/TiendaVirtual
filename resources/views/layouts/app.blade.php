@@ -19,17 +19,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <div id="loader_container">
-        <div id="loader1">
-            <div id="loader2">
-                <div id="loader3"></div>
-            </div>
-        </div>
-    </div>
+<body class="bg-claro">
     <div id="app">
-        <nav class="navbar navbar-expand-md fixed-top bg-light navbar-light flex-md-nowrap p-1 mb-4 shadow-sm">
-            <div class="container">
+        <nav class="navbar navbar-expand-md fixed-top navbar-light navbar-gradient flex-md-nowrap p-2 shadow">
+            <div class="container mx-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <i class="fas fa-store-alt"></i> {{ config('app.name', 'Laravel') }}
                 </a>
@@ -50,7 +43,7 @@
                             <a href="{{route('categories.index')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('contact')}}" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
+                            <a href="{{url('/')}}/#nosotros" class="nav-link"><i class="fas fa-address-card"></i> Nosotros</a>
                         </li>
                     </ul>
 
@@ -103,9 +96,20 @@
             </div>
         </nav>
 
-        <main class="py-5">
+        <main class="pt-5">
             @yield('content')
         </main>
+
+        <footer class="d-inline-flex flex-row align-content-center bg-gradient-bt p-3 footer">
+            <div class="mr-auto text-white">
+                <h5 style="font-family: monospace;">Jean P. Tivan R.</h5>
+            </div>
+            <div class="ml-auto d-flex flex-row">
+                <a href="https://twitter.com/" target="_blank" class="twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" class="instagram mx-2"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
+            </div>         
+        </footer>
     </div>
     
     <!-- Scripts -->

@@ -22,18 +22,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body class="bg-light">
-    <div id="loader_container">
-        <div id="loader1">
-            <div id="loader2">
-                <div id="loader3"></div>
-            </div>
-        </div>
-    </div>
+<body class="bg-claro">
 
     <div id="app">
-        <nav class="navbar navbar-expand-md fixed-top bg-light navbar-light flex-md-nowrap p-1 shadow-sm">
-            <div class="container">
+        <nav class="navbar navbar-expand-md fixed-top navbar-light navbar-gradient flex-md-nowrap p-2 shadow">
+            <div class="container mx-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <i class="fas fa-store-alt"></i> {{ config('app.name', 'Laravel') }}
                 </a>
@@ -54,7 +47,7 @@
                             <a href="{{route('categories.index')}}" class="nav-link"><i class="fas fa-tags"></i> Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('contact')}}" class="nav-link"><i class="fas fa-address-card"></i> Contacto</a>
+                            <a href="{{url('/')}}/#nosotros" class="nav-link"><i class="fas fa-address-card"></i> Nosotros</a>
                         </li>
                     </ul>
 
@@ -99,7 +92,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-lg-2 d-none d-md-block bg-secondary sidebar navbar-dark">
+                <nav class="col-lg-2 col-md-2 col-sm-2 d-none d-md-block bg-oscuro sidebar navbar-dark">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item ">
@@ -184,7 +177,7 @@
             </div>
         </div>
                 
-        <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10">
+        <main role="main" id="main" class="pt-5 col-md-9 ml-sm-auto col-lg-10">
             @yield('content')
         </main>
     </div>

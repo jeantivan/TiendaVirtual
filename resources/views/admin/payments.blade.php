@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-3">
+<div class="container-fluid mt-3">
 	<h1 class="title">Pagos.</h1>
 	<hr>
 @if(count($payments))

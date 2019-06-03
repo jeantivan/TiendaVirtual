@@ -1,13 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-3">
-	<h1 class="title">Dashboard</h1>
+<div class="container-fluid mt-3">
+	<h1 class="title text-oscuro">Dashboard</h1>
 	<hr>
-
 	<div class="container mb-3">
-		<h2 class="title text-info">Ultimos Pagos.</h2>
-		<ul class="list-unstyled p-3 border border-secondary rounded-lg shadow-sm">
+		<h2 class="title text-mostaza">Ultimos Pagos.</h2>
+		<ul class="list-unstyled p-3 border border-dark rounded-lg shadow-sm bg-light " >
 		@foreach($payments as $payment)
 			<li class="media mb-3">
 			@switch($payment->banco)
@@ -51,7 +50,7 @@
 	</div>
 
 	<div class="container my-3">
-		<h2 class="title text-info">Productos.</h2>
+		<h2 class="title text-mostaza">Productos.</h2>
 
 		<div class="row">
 			@foreach($products as $product)
@@ -82,7 +81,7 @@
 	</div>
 
 	<div class="container">
-		<h2 class="title text-info">Ordenes.</h2>
+		<h2 class="title text-mostaza">Ordenes.</h2>
 		<div class="rounded-lg d-flex">
 		  <button class="tablink title flex-fill created active" data-type="Created" data-color="#f6993f">Últimas Creadas.</button>
 		  <button class="tablink title flex-fill paid" data-type="Paid" data-color="#4dc0b5">Útimas pagadas.</button>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container my-3">
+<div class="container mt-3">
 	<h1 class="title">Pago.</h1>
 	<hr>
 	<div class="card shadow-sm my-3">

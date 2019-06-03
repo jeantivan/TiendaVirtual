@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid my-md-3">
+<div class="container-fluid mt-3">
 	<div class="clearfix">
 		<div class="float-left">
 			<h1 id="title" class="title">Productos Disponibles</h1>
