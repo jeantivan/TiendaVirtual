@@ -1,6 +1,8 @@
 
 // Fuentes
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+
+//Raleway
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 // Variables
@@ -9,81 +11,154 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+/* Mis variables */
+$claro: #EBF2F5;
+$azul: #1788B5;
+$mostaza: #E78C04;
+$oscuro: #0C0722;
 
-/**
- * Preloader
-*/
-#loader_container{
-  position: fixed;
-  background-color: #3C3C4F;
-  width: 100vw;
-  height: 100vh;
-  overflow:hidden;
-  top:0;
-  left:0;
-  z-index: 1080;
+/* Diseño */
+html{
+  height: 100%;
+}
+body{
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 6rem;
+}
+.title{
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
 }
 
-#loader1{
+.bg-claro{
+  background-color: $claro !important;
+}
+
+.bg-azul{
+  background-color: $azul !important;
+}
+
+.bg-mostaza{
+  background-color: $mostaza !important;
+}
+
+.bg-oscuro{
+  background-color: $oscuro !important;
+}
+
+.bg-gradient-bt{
+  background: linear-gradient(to top, #1788b5 0%, #33ccff 100%);
+}
+
+.text-claro{
+  color: $claro !important;
+}
+
+.text-azul{
+  color: $azul !important;
+}
+
+.text-mostaza{
+  color: $mostaza !important;
+}
+
+.text-oscuro{
+  color: $oscuro !important;
+}
+
+.display-5{
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.display-6{
+  font-size: 2.50rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.navbar-gradient{
+  background: linear-gradient(to right, #1788b5 0%, #33ccff 100%) !important;
+}
+
+.navbar-light .navbar-nav .nav-link, .navbar-light .navbar-brand, 
+.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+  color: $claro;
+}
+
+.navbar .nav-link:hover{
+  color: $mostaza !important;
+}
+
+#navbar{
+  top: -300px;
+  transition: top 0.7s;
+}
+
+.btn-header{
+  font-size: 1.125rem;
+  color: #fff;
+  border: 1px solid $oscuro;
+  border-radius: 1rem;
+  background-color: $claro;
+  transition: all .4s;
+  background: $mostaza linear-gradient(180deg, #D68814,$mostaza) repeat-x;
+  border-color: $mostaza;
+
+}
+
+.btn-header:hover, .btn-header:focus{
+  color: #fff;
+  background: darken($mostaza, 1.3) linear-gradient(180deg, darken($mostaza, 1.3), darken($mostaza, 1.2)) repeat-x;
+  border-color: darken($mostaza, 1.4); 
+}
+
+/* Seccion de contacto */
+.bg-contact{
+  background: linear-gradient(to top, #33ccff 0%, $claro 50%);
+  background-repeat: no-repeat;
+}
+
+/* Footer */
+
+.footer{
   position: absolute;
-  top:0;
-  left:0;
   right: 0;
   bottom: 0;
-  margin: auto;
-  width: 12vw; 
-  height: 12vw;
-  border: 0.7vh solid #3C3C4F;
-  border-top: 0.7vh solid $orange;
+  left: 0;
+}
+
+.footer a{
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem !important;
   border-radius: 50%;
-  animation: spin 2.2s ease infinite;
 }
 
-#loader2{
-  position: absolute;
-  top:0;
-  left:0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 10vw; 
-  height: 10vw;
-  border: 0.7vh solid #3C3C4F;
-  border-top: 0.7vh solid $orange;
-  border-radius: 50%;
-  animation: spin 2s ease infinite;
+.footer a:hover{
+  opacity: 0.7;
 }
 
-#loader3{
-  position: absolute;
-  top:0;
-  left:0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 8vw; 
-  height: 8vw;
-  border: 0.7vh solid #3C3C4F;
-  border-top: 0.7vh solid $orange;
-  border-radius: 50%;
-  animation: spin2 2.4s linear infinite;
+.facebook {
+  background-color: #3B5998;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { 
-    transform: rotate(360deg);
-  }
+.twitter {
+  background-color: #55ACEE;
 }
-@keyframes spin2 {
-  0% { transform: rotateZ(0deg); }
-  100% { 
-    transform: rotateZ(-360deg);
-  }
+
+.instagram {
+  background: linear-gradient(to bottom, #feda75, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5);
 }
 
 
 
+/* Dashboard del Administrador */
+
+/* Sidebar del Administrador */
 
 .sidebar {
   position: fixed;
@@ -140,17 +215,6 @@
   }
 }
 
-.title{
-  font-family: 'Raleway', sans-serif;
-  text-transform: uppercase;
-}
-
-.navbar .nav-link:hover{
-  color: $red !important;
-}
-
-/* Dashboard del Administrador */
-
 /* Productos del Dashboard */
 .scale{
   transition: transform 0.2s ;
@@ -165,7 +229,8 @@
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: #DBDDDF;
+  background-color: $oscuro;
+  color: $claro;
   padding: 14px 16px;
   font-size: 17px;
   position: relative;
@@ -184,7 +249,7 @@
   }
 
   &:hover{
-    background-color: #B1B1B1;
+    background-color: $oscuro;
   }
 
   &:before {
@@ -214,7 +279,7 @@
 }
 
 .paid:before{
-  background-color: $teal;
+  background-color: $red;
 }
 
 .created.active{
@@ -224,7 +289,7 @@
 
 .paid.active{
   color: white;
-  background-color: $teal; 
+  background-color: $red; 
 }
 
 .confirmed.active{
@@ -246,7 +311,7 @@
 }
 
 #Paid{
-  background-color: $teal;
+  background-color: $red;
 }
 
 #Created{
@@ -257,3 +322,7 @@
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+
+
+

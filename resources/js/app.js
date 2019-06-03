@@ -10,6 +10,15 @@ require('./bootstrap');
  * A partir de aquí se escribirá el JavaScript de la aplicación
  */
 
+// Mostrar el NavBar
+function showNavBar(){
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        $('#navbar').css('top', '0');
+    } else {
+        $('#navbar').css('top', '-300px');
+    }
+}
+
 // Convertir el 1er caracter de una cadena en Mayuscula
 function firstCharToUpperCase(string){
 	let str = string.toLowerCase();
@@ -264,8 +273,6 @@ $('.tablink').on('click', function(event){
 // Activar los tooltip de Bootstrap4
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
-    $('body').css('display', 'block').fadeIn('slow');
-    $('#loader_container').fadeOut().css('display', 'none');
 });
 
 // Preloader
@@ -273,5 +280,8 @@ $(document).ready(function() {
     $('body').css('display', 'block').fadeIn('slow');
     $('#loader_container').fadeOut().css('display', 'none');
 }
+
+// Mostrar el navbar en la pagina de inicio cuando se hace scroll
+window.onscroll = () => showNavBar();
 
 

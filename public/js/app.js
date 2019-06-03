@@ -36843,7 +36843,16 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /**
  * A partir de aquí se escribirá el JavaScript de la aplicación
  */
-// Convertir el 1er caracter de una cadena en Mayuscula
+// Mostrar el NavBar
+
+
+function showNavBar() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    $('#navbar').css('top', '0');
+  } else {
+    $('#navbar').css('top', '-300px');
+  }
+} // Convertir el 1er caracter de una cadena en Mayuscula
 
 
 function firstCharToUpperCase(string) {
@@ -37054,14 +37063,17 @@ $('.tablink').on('click', function (event) {
 
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
-  $('body').css('display', 'block').fadeIn('slow');
-  $('#loader_container').fadeOut().css('display', 'none');
 }); // Preloader
 
 (function () {
   $('body').css('display', 'block').fadeIn('slow');
   $('#loader_container').fadeOut().css('display', 'none');
-});
+}); // Mostrar el navbar en la pagina de inicio cuando se hace scroll
+
+
+window.onscroll = function () {
+  return showNavBar();
+};
 
 /***/ }),
 
