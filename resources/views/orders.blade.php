@@ -73,7 +73,7 @@
 						<a href="{{route('users.orders.invoice', ['id' => $order->id])}}" class="btn btn-block btn-primary my-2" target="_blank">Ver Factura</a>
 					</div>
 					<div class="col-md-4">
-					@if($order->status === 'Pago Verificado' || $order->status === 'Orden Enviada')
+					@if($order->status === 'Pago Verificado' || $order->status === 'Enviada')
 						<a href="#change-address" data-toggle="modal" class="btn btn-warning btn-block mt-1 mb-2 disabled">Cambiar Dirección</a>
 					@else
 						<a href="#change-address" data-toggle="modal" class="btn btn-warning btn-block mt-1 mb-2">Cambiar Dirección</a>

@@ -145,10 +145,10 @@
         <section class="container-fluid p-5 pt-3 m-0 h3 bg-contact contact" id="nosotros">
             <p class="text-left display-6">Nosotros.</p>
             <p class="text-left h4 text-oscuro">
-                Puedes encontrarnos en<br> <i class="text-muted">5087 Lazy Panda Corner, Toxaway, Illinois, 62903-9822, US.</i>
+                Puedes encontrarnos en<br> <i class="text-muted">Chacao, diagonal a la estación del metro, Edif. Negro 222, PB, Miranda, Caracas.</i>
             </p> 
             <p class="text-left h4">
-                Llamando al <strong class="text-mostaza">254-653-5081</strong>
+                Llamando al <strong class="text-mostaza">(0212)123.4567</strong>
             </p>
             <p class="text-left h4">
                 Escribe a <strong class="text-mostaza">info@tiendavirtual.com</strong>
